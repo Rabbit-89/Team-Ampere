@@ -37,15 +37,25 @@ docs/deploy.md enligt mallen från workshopen (flöde, miljöer, var varje varia
 
 [x] README med staging-adressen och Kom igång som börjar med cp .env.example .env · logg i docs/log.md, en post per arbetsdag, med vem som gjorde vad
 
-# DoD-punkt 3
+# M5
 
-```text
+- [x] **Produktion skild från staging:** en egen Render-tjänst på egen adress, APP_ENV=production, ingen miljöbanner. Samma image som staging: version.txt visar samma sha på båda efter en deploy
+
+- [x] **Godkännande före prod:** GitHub-miljön production har required reviewers (hela teamet) och Prevent self-review. Jobbet deploy-production har needs: på staging-jobbet, deployar ghcr.io/…:<sha> via hook, väntar på /version.txt och gör ett röktest som blir rött om flaggan är på i prod
+
+- [x] **Norge-stödet bakom en feature flag:** en synlig förändring på översikten, styrd av FEATURE_NORWAY som containern läser vid start. På i staging, av i prod. Två tester: flaggan och komponenten.
+
+Bevis:
+
+```
+rwaqa@hpi7 MINGW64 ~/Desktop/Rabbiya repos/Team-Ampere (add/m5_milestones)
 $ curl https://team-ampere-main.onrender.com/config.js
 window.__KRAFTLY__ = {
   env: 'lokal',
   features: { norway: true }
 }
 
+rwaqa@hpi7 MINGW64 ~/Desktop/Rabbiya repos/Team-Ampere (add/m5_milestones)
 $ curl https://kraftly-teamampere.onrender.com/config.js
 window.__KRAFTLY__ = {
   env: 'production',
@@ -53,7 +63,11 @@ window.__KRAFTLY__ = {
 }
 ```
 
-# DoD-punkt 5
+-[x] **Beslutsdokument docs/decisions/feature-flags.md:** minst tre alternativ (branch, byggtidsflagga, körtidsflagga), motivering, och när flaggan ska bort
+
+-[x] **Cache-headers konfigurerade och verifierade:** /assets/ med public, max-age=31536000, immutable, index.html/config.js/version.txt med no-cache.
+
+### Bevis:
 
 ## Före
 
@@ -62,3 +76,25 @@ window.__KRAFTLY__ = {
 ## Efter
 
 ![alt text](<Screenshot 2026-09-24 155741.png>)
+
+-[x] **Rollback genomförd i praktiken:** rollback.yml med val av miljö, körd mot staging.
+
+### Bevis:
+
+**länk till Actions-körningen:**
+https://github.com/Rabbit-89/Team-Ampere/actions/runs/36407473030
+
+**Tiden från start till ✅ https://team-ampere-main.onrender.com kör 28b22e1b71535d717c1cf77ff10c580b6d7ca385 igen :** 30s
+
+-[x] **docs/scaling.md enligt mallen från workshopen:** era mätvärden (autocannon, tre anrop, req/s + p99, kommandot ni körde), vad de säger om flaskhalsen, vad ni gjorde,
+
+- **Startsidan är det snabbast :** 8411 anrop/sekund, p99 är 18ms. Nginx visar statisk filen och nästan ingen jobb för servern.
+- **JS-filen är lite långammare:** bara 887 anrop/sekund och p99 på 83ms. Kankse filen är stor (vi såg 347 MB/s i genomströmning).
+- **/api/user har lägst genomströmning** (709 anrop/sekund). Node gör riktig jobb för varje anrop, till skillnad från nginx som bara skickar en fil.
+- **Så flaskhalsen är :** API.et (Node)
+
+- **INTE flaskhalsan :** nginx/startsidan - den klara mycket hög belastning utan problem.
+
+varför (inte) Kubernetes, och regeln för flagga kontra rollback med tider. Granskas muntligt på avstämningen
+
+-[x] **Adresserna:** prod-raden i miljötabellen i docs/deploy.md och prod-adressen i README.
