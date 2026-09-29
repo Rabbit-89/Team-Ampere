@@ -56,14 +56,17 @@ API:et är den svagaste länken. Vi kan inte ändra dess kod själva
 
 ## Varför (inte) Kubernetes
 
-(Tre meningar. Om ni gjorde övning 2 B: vad fick ni, vad kostade det.)
+- Kubernetes passar bra för större projekt där man behöver köra och hantera många containrar. Det kan automatisera distribution, skalning och återstart av containrar. Om en container kraschar kan Kubernetes också hjälpa till att starta om den automatiskt.
+
+- För ett mindre projekt är Kubernetes däremot kanske inte nödvändigt. Det kan vara ganska komplext och kräver mer konfiguration, kunskap och underhåll. Om projektet bara använder en eller några få containrar kan till exempel Docker Compose eller en enkel molntjänst vara tillräckligt.
+
+- Därför beror valet på projektets behov. Kubernetes är användbart när systemet är stort och behöver skalas eller ha hög tillgänglighet, men för ett mindre projekt kan det vara onödigt komplext.
 
 ## När stänger man en flagga i stället för att rulla tillbaka?
 
-|                                                                | Feature flag | Rollback |
-| -------------------------------------------------------------- | ------------ | -------- |
-| Tar                                                            |              |          |
-| Påverkar                                                       |              |          |
-| Passar när                                                     |              |          |
-| Regeln vi enats om: …                                          |
-| (Fyll i tiderna i morgon, när ni gjort rollbacken på riktigt.) |
+|                         | Feature flag                                                                                                                                                                                                        | Rollback                                                                                 |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| **Tar**                 | 10s                                                                                                                                                                                                                 | 37s                                                                                      |
+| **Påverkar**            | Påverkar bara den specifika feature som är skyddad med en flag                                                                                                                                                      | Hela kod förändras, går tillbaks till den gamla versionen                                |
+| **Passar**              | Passar när det finns problem med bara en feature                                                                                                                                                                    | Problemet är inte med bara en feature eller det är inte möjlig att sätta en flag på den. |
+| **Regeln vi enats om:** | Om problemet är med en isolerad feature som vi kan toggle, då vi kommer att använda feature flag. Vi ska göra en rollback när det är omöjligt att använda feature flag för att dölja trasig feature eller problemet |
