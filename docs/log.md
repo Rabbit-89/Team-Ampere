@@ -338,3 +338,58 @@ Decisions/hosting.md
 **Vad har jag gjort idag?**
 
 Skrivit daily log.
+
+# 2026-09-24
+
+### Rabbiya
+
+Skapade produktion miljön. Och deployade web service produktion på Render.
+Ändringar i produktion miljön.. Kräver godkänd innan det går ut.
+Lägg till jobbet produktion i workflows.
+Körde curl utan Cache-control och sen lägg till Cache-control.
+Körde autocannon och gjorde mätningar latens (hur lång tid varje anrop tog, som percentiler) och genomströmning (hur många anrop och byte per sekund servern hann med)
+Skapade scaling.md och lägg till siffror från mätningarna i en tabell
+
+### Jia
+
+Implementerade en runtime feature flag för Norge.
+Lade till config.js, runtime-konfiguration och isEnabled() för att styra flaggan per miljö.
+Lade till NorwayNotice på dashboarden och skrev tester för feature flaggen och komponenten.
+Fixade testmiljön genom att lägga till @testing-library/vue och @testing-library/jest-dom.
+Körte tester och lint, och skapade PR för ändringarna.
+Konfigurerade FEATURE_NORWAY=true i staging och verifierade config.js med curl.
+Verifierade att Norge-flaggan är av i production.
+Skrev beslutdokumentet docs/decisions/feature-flags.md om varför vi valde runtime-konfiguration framför build-time-konfiguration.
+
+### Leo
+
+Självstudier
+
+# 2026-09-28
+
+### Rabbiya
+
+**Vad har jag gjort idag?**
+
+Gjorde Rollback igen.. kollade på tiden, skrev den i milestones.md
+Skrev M5 DoD i milestones.md
+
+# 2026-09-29
+
+### Rabbiya
+
+**Vad har jag gjort idag?**
+
+Skrev regler om feature flag i scaling.md
+
+### Jia
+
+**Vad har jag gjort idag?**
+
+Möte med teamet och självstudier
+
+### Leo
+
+**Vad har jag gjort idag?**
+
+Jobbar med Volt's repo och gör failtester samt skrivit daily log.
