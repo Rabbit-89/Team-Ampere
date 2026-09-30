@@ -393,3 +393,7 @@ Möte med teamet och självstudier
 **Vad har jag gjort idag?**
 
 Jobbar med Volt's repo och gör failtester samt skrivit daily log.
+
+## checkpoint
+
+- lektion checkppoint
