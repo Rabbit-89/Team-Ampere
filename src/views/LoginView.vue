@@ -36,7 +36,7 @@ const handleLogin = async () => {
   loading.value = true;
   try {
     const response = await login(email.value, password.value);
-    setAccessToken(response.token);
+    setAccessToken(response.accessToken);
     router.push("/");
   } catch {
     errorMessage.value = "Fel e-postadress eller lösenord.";
