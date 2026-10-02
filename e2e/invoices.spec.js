@@ -52,3 +52,10 @@ test("fakturasidan visar det API:et svarar – även en faktura servern aldrig h
   await expect(page.getByText("F-999")).toBeVisible();
   await expect(page.getByText("December 2019")).toBeVisible();
 });
+
+// Security test
+test("skyddad endpoint kräver token", async ({ request }) => {
+  const response = await request.get("/api/v2/invoices");
+
+  expect(response.status()).toBe(401);
+});
