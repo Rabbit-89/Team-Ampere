@@ -37,14 +37,16 @@ app.use(express.json());
 // CORS -- opens everything so it just works
 // Varje anrop till /api måste ha en giltig nyckel
 app.use("/api", (req, res, next) => {
-  const client = keys.get(req.get("X-Api-Key"));
-  if (!client) {
+  const auth = req.get("Authorization") || "";
+  const token = auth.startsWith("Bearer ") ? auth.slice(7) : "";
+
+  if (token !== "fake-token-123") {
     console.log(
-      `401 ${req.method} ${req.originalUrl} – saknad eller ogiltig nyckel`,
+      `401 ${req.method} ${req.originalUrl} – saknad eller ogiltig token`,
     );
-    return res.status(401).json({ error: "Saknad eller ogiltig API-nyckel" });
+    return res.status(401).json({ error: "Saknad eller ogiltig token" });
   }
-  console.log(`[${client}] ${req.method} ${req.originalUrl}`);
+
   next();
 });
 
