@@ -19,6 +19,7 @@ const router = createRouter({
 });
 
 // "auth" -- keeps unauthorized users out :)
+// Auth guard for UX only, real protection is enforced by the API.
 router.beforeEach((to) => {
   if (to.path !== "/login" && !getAccessToken()) {
     return "/login";
