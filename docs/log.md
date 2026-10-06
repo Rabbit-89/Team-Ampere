@@ -397,3 +397,93 @@ Jobbar med Volt's repo och gör failtester samt skrivit daily log.
 ## checkpoint
 
 - lektion checkppoint
+
+# 2026-10-01
+
+### Jia
+
+**Vad har jag gjort idag?**
+
+sjukfrånvaro
+
+### Rabbiya
+
+**Vad har jag gjort idag?**
+
+Gjorde spår 1 i övningen 3.
+Byte api med api/v2 ,
+access token hålls i minnet istället för localStorage.
+lagt fel meddelandet som dyker upp när man skriver fel mail address och lösenord.
+Uppdaterade e2e tests
+
+### Leo
+
+**Vad har jag gjort idag?**
+
+Självstudier
+
+# 2026-10-02
+
+### Jia
+
+**Vad har jag gjort idag?**
+
+Implementerade Bearer-token för API v2.
+Uppdaterade route guard för utloggade användare.
+Verifierade 401 utan token och 200 med giltig JWT.
+Verifierade att customerNo i querystring ignoreras.
+Uppdaterade docs/security.md med OWASP-genomgång.
+Lade till Playwright-test för skyddad endpoint.
+Testresultat: 2 passed.
+
+### Rabbiya
+
+**Vad har jag gjort idag?**
+
+Självstudier
+
+### Leo
+
+**Vad har jag gjort idag?**
+
+Självstudier
+
+# 2026-10-05
+
+### Jia
+
+**Vad har jag gjort idag?**
+
+Självstudier
+
+### Rabbiya
+
+**Vad har jag gjort idag?**
+
+Skapat en dokument tokenlagring.md och skrev där om var access token lagras.
+
+### Leo
+
+**Vad har jag gjort idag?**
+
+Arbetade med CSP och headers
+
+# 2026-10-06
+
+### Jia
+
+**Vad har jag gjort idag?**
+
+Skrev Daliylog och M6 milstones.
+
+### Rabbiya
+
+**Vad har jag gjort idag?**
+
+Team möte och självstudier.
+
+### Leo
+
+**Vad har jag gjort idag?**
+
+Fortsatte jobba och blev klar med CSP och headers

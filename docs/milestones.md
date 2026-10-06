@@ -98,3 +98,23 @@ https://github.com/Rabbit-89/Team-Ampere/actions/runs/36407473030
 varför (inte) Kubernetes, och regeln för flagga kontra rollback med tider. Granskas muntligt på avstämningen
 
 -[x] **Adresserna:** prod-raden i miljötabellen i docs/deploy.md och prod-adressen i README.
+
+# M6
+
+[x] Riktig inloggning: LoginView loggar in mot /api/v2/auth/login med e-post och lösenord, visar ett felmeddelande vid fel uppgifter (role="alert"), och den fejkade localStorage-flaggan är borttagen ur hela koden
+
+[x] Access token i minnet, inte i localStorage: ett test eller en kort motivering i docs/security.md som visar att token inte hamnar i webblagring. Refresh sköts mot cookien; en omladdning loggar inte ut
+
+[x] Skyddade routes + skyddat API: en route guard skickar utloggade till /login, och ni har visat (curl eller ett test) att /api/v2/invoices svarar 401 utan token – guarden är UX, API:t är skyddet
+
+[x] Ingen kund ser en annans data: fakturor/förbrukning väljs ur token. Om ni bygger en variant med ?customerNo= eller liknande: visa att den ignoreras (A01/IDOR)
+
+[x] OWASP-genomgång i docs/security.md: en rad per relevant kategori (minst A01, A02, A05, A07) med vad ni hittade och vad ni gjorde. Använd mallen (Canvas-sidan OWASP-checklista)
+
+[x] CORS låst: API-anropen går genom er egen proxy (samma origin). Om något behöver riktig CORS: en uttrycklig lista över origins, aldrig * med cookies. Skriv motiveringen i docs/security.md
+
+[x] Content Security Policy + säkerhetsheaders: CSP (minst default-src 'self'; script-src 'self') plus X-Content-Type-Options, X-Frame-Options/frame-ancestors satt i nginx. curl -I på er staging som visar dem, klistrat i docs/security.md
+
+[x] Ett beslutsdokument docs/decisions/tokenlagring.md: var access token lagras, alternativen (localStorage / cookie / minne), och varför ni valde som ni valde
+
+[x] Testerna gröna (inklusive minst ett nytt test på auth-flödet eller att ett skyddat anrop kräver token) · logg i docs/log.md
