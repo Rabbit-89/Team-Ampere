@@ -5,4 +5,4 @@ COPY package*.json ./
 RUN npm ci --omit=dev --ignore-scripts
 COPY . .
 EXPOSE 4000
-CMD ["node", "server.js"]
+CMD ["node", "mock-api/server.js"]
