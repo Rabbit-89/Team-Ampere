@@ -99,3 +99,21 @@ Projektet använder ett mock-API och testdata. Autentiseringen och säkerhetslö
 3. Begränsad logging och alerting
 
 API:t loggar autentiseringsfel, men vi har ingen komplett central loggning, övervakning eller automatisk alerting som i en produktionsmiljö.
+
+# Headers CSP
+
+Testa med curl -I https://team-ampere-main.onrender.com/ | grep -i -E 'content-security|x-frame|x-content' (Linux,MacOS) eller
+
+curl.exe -I https://team-ampere-main.onrender.com/ | Select-String -Pattern "content-security|x-frame|x-content" (Windows/PowerShell)
+
+content-security-policy: default-src 'self';
+script-src 'self';
+style-src 'self' 'unsafe-inline';
+img-src 'self' data:;
+font-src 'self' data:;
+connect-src 'self';
+frame-ancestors 'none';
+object-src 'none';
+base-uri 'self'
+x-content-type-options: nosniff
+x-frame-options: DENY
