@@ -10,6 +10,9 @@ RUN npm run build
 FROM nginx:1-alpine3.24-slim
 # Mall, inte färdig config: PORT, API_URL och API_KEY kommer från miljön vid start.
 COPY nginx.conf.template /etc/nginx/templates/default.conf.template
+# Säkerhetsheaders
+COPY docker/security-headers.conf /etc/nginx/security-headers.conf
+
 COPY --from=build /app/dist /usr/share/nginx/html
 # Skriver config.js från miljön när containern startar
 COPY --chmod=755 docker/40-runtime-config.sh /docker-entrypoint.d/40-runtime-config.sh
