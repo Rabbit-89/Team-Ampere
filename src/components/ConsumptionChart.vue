@@ -3,7 +3,17 @@
 </template>
 
 <script setup>
-import Chart from "chart.js/auto";
+import {
+  Chart,
+  BarController,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip,
+} from "chart.js";
+
+Chart.register(BarController, BarElement, CategoryScale, LinearScale, Tooltip);
+
 import { ref, onMounted, onBeforeUnmount } from "vue";
 
 const props = defineProps({ months: Array, values: Array });
