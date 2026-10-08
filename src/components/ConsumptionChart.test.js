@@ -3,13 +3,22 @@ import { describe, it, expect, vi } from "vitest";
 import ConsumptionChart from "./ConsumptionChart.vue";
 
 const ChartMock = vi.hoisted(() => {
-  return vi.fn(function () {
+  const mock = vi.fn(function () {
     this.destroy = vi.fn();
   });
+
+  mock.register = vi.fn();
+
+  return mock;
 });
 
-vi.mock("chart.js/auto", () => ({
-  default: ChartMock,
+vi.mock("chart.js", () => ({
+  Chart: ChartMock,
+  BarController: {},
+  BarElement: {},
+  CategoryScale: {},
+  LinearScale: {},
+  Tooltip: {},
 }));
 
 describe("ConsumptionChart", () => {
