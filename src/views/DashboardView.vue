@@ -1,6 +1,13 @@
 <template>
   <div>
-    <img src="../assets/hero.png" class="hero" />
+    <img
+      src="../assets/hero.webp"
+      class="hero"
+      width="1200"
+      height="600"
+      alt=""
+      fetchpriority="high"
+    />
     <h1 v-if="userStore.user">Hej {{ userStore.user.name.split(" ")[0] }}!</h1>
     <h1 v-else>Hej!</h1>
 
@@ -96,17 +103,21 @@ const showTips = () => {
   width: 100%;
   border-radius: 10px;
   margin-bottom: 18px;
+  height: auto;
 }
+
 .stats {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 20px;
 }
+
 .stat-label {
   font-size: 13px;
   color: #7c8698;
   margin-bottom: 6px;
 }
+
 .stat-value {
   font-size: 26px;
   font-weight: 700;
