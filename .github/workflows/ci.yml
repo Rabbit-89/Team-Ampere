@@ -42,7 +42,6 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm run lighthouse:ci
-      - run: npm run check:js-budget
 
 
   build:

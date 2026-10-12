@@ -2,6 +2,7 @@ node_modules
 dist
 .DS_Store
 test-results/
+lhci-reports/
 # Hemligheter och lokal konfiguration – aldrig i repot
 .env
 .env.local
