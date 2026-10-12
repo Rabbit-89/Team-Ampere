@@ -12,11 +12,11 @@ Vi ändrar en sak i taget och mäter efter varje optimering.
 
 ## Budgeten
 
-| Mått       | Budget  | Var                      | Varför just den    |
-| ---------- | ------- | ------------------------ | ------------------ |
-| LCP        | ≤ 2,5 s | `/login` i Lighthouse CI |                    |
-| CLS        | ≤ 0,1   | `/login` i Lighthouse CI |                    |
-| JavaScript |         | `/login` i CI,           | Vi ligger på ...KB |
+| Mått       | Budget   | Var                      | Varför just den                                                     |
+| ---------- | -------- | ------------------------ | ------------------------------------------------------------------- |
+| LCP        | ≤ 2,5 s  | `/login` i Lighthouse CI | För att sidan ska visa sitt största innehåll snabbt.                |
+| CLS        | ≤ 0,1    | `/login` i Lighthouse CI | För att innehållet inte ska hoppa runt.                             |
+| JavaScript | ≤ 45 KiB | `/login` i CI,           | Gränsen ligger strax över den uppmätta storleken på cirka 40,7 KiB. |
 
 ## Optimeringarna
 
