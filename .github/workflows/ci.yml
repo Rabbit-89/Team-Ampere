@@ -27,6 +27,21 @@ jobs:
       - run: npm run format:check
       - run: npm run test:run
 
+  performance:
+    name: Prestandabudget (Lighthouse)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+      - run: npm run lighthouse:ci
+
   build:
     runs-on: ubuntu-latest
     steps:
@@ -77,7 +92,7 @@ jobs:
   publish:
     name: Image → GHCR
     runs-on: ubuntu-latest
-    needs: [quality, build, e2e]
+    needs: [quality, build, e2e, performance]
     permissions:
       contents: read
       packages: write
