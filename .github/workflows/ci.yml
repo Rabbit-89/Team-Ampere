@@ -26,7 +26,6 @@ jobs:
       - run: npm run lint
       - run: npm run format:check
       - run: npm run test:run
-      
 
   performance:
     name: Prestandabudget (Lighthouse)
@@ -42,7 +41,6 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm run lighthouse:ci
-
 
   build:
     runs-on: ubuntu-latest
