@@ -1,0 +1,38 @@
+[
+  {
+    "url": "http://127.0.0.1:4173/",
+    "isRepresentativeRun": false,
+    "htmlPath": "C:\\Users\\bonga\\Desktop\\CHAS Plugg\\Projekt\\Grupparbeten\\Kraftly\\Kraftly\\Team-Ampere\\lhci-reports\\127_0_0_1--2026_10_11_23_50_13.report.html",
+    "jsonPath": "C:\\Users\\bonga\\Desktop\\CHAS Plugg\\Projekt\\Grupparbeten\\Kraftly\\Kraftly\\Team-Ampere\\lhci-reports\\127_0_0_1--2026_10_11_23_50_13.report.json",
+    "summary": {
+      "performance": 0.99,
+      "accessibility": 0.8,
+      "best-practices": 0.96,
+      "seo": 0.75
+    }
+  },
+  {
+    "url": "http://127.0.0.1:4173/",
+    "isRepresentativeRun": false,
+    "htmlPath": "C:\\Users\\bonga\\Desktop\\CHAS Plugg\\Projekt\\Grupparbeten\\Kraftly\\Kraftly\\Team-Ampere\\lhci-reports\\127_0_0_1--2026_10_11_23_50_27.report.html",
+    "jsonPath": "C:\\Users\\bonga\\Desktop\\CHAS Plugg\\Projekt\\Grupparbeten\\Kraftly\\Kraftly\\Team-Ampere\\lhci-reports\\127_0_0_1--2026_10_11_23_50_27.report.json",
+    "summary": {
+      "performance": 0.99,
+      "accessibility": 0.8,
+      "best-practices": 0.96,
+      "seo": 0.75
+    }
+  },
+  {
+    "url": "http://127.0.0.1:4173/",
+    "isRepresentativeRun": true,
+    "htmlPath": "C:\\Users\\bonga\\Desktop\\CHAS Plugg\\Projekt\\Grupparbeten\\Kraftly\\Kraftly\\Team-Ampere\\lhci-reports\\127_0_0_1--2026_10_11_23_49_59.report.html",
+    "jsonPath": "C:\\Users\\bonga\\Desktop\\CHAS Plugg\\Projekt\\Grupparbeten\\Kraftly\\Kraftly\\Team-Ampere\\lhci-reports\\127_0_0_1--2026_10_11_23_49_59.report.json",
+    "summary": {
+      "performance": 0.99,
+      "accessibility": 0.8,
+      "best-practices": 0.96,
+      "seo": 0.75
+    }
+  }
+]
