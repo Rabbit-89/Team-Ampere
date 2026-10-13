@@ -487,3 +487,63 @@ Team möte och självstudier.
 **Vad har jag gjort idag?**
 
 Fortsatte jobba och blev klar med CSP och headers
+
+# 2026-10-08
+
+### Jia
+
+**Vad har jag gjort idag?**
+
+Idag har jag arbetat med prestandaoptimering av JavaScript enligt Spår 2.
+Jag började med att mäta den befintliga JavaScript-bundlen med npm run build och vite-bundle-visualizer. Baseline visade att huvudbundlen var 141,31 kB gzip. Bundle visualizer visade framför allt att lodash och chart.js tog mycket plats.
+Jag gjorde sedan följande optimeringar:
+
+- Implementerade lazy loading för alla routes/views i src/router/index.js.
+- Tog bort lodash, eftersom det endast användes för debounce, och skapade istället en egen debounce-funktion i src/utils/debounce.js.
+- Bytte från chart.js/auto till selektiva imports från chart.js och registrerade endast de komponenter som behövs för bar-diagrammet.
+- Uppdaterade Chart.js-mocken i ConsumptionChart.test.js så att testerna fungerar med den nya importen.
+- Dokumenterade före- och efter-resultaten i docs/performance.md.
+  Resultat
+  Main bundle:
+  141,31 kB → 40,12 kB gzip
+  DashboardView:
+  100,07 kB → 72,84 kB → 51,67 kB gzip
+  Jag körde även npm run test:run och alla 24 tester passerade utan HTMLCanvasElement's getContext()-felet.
+  Jag har även förberett en PR för ändringarna.
+
+# 2026-10-09
+
+### Jia
+
+**Vad har jag gjort idag?**
+
+Uppdaterat docs/performance.md enligt lärarens mall.
+
+### Rabbiya
+
+**Vad har jag gjort idag?**
+
+- Skapade performance.md inom docs.
+- Gör mätningar med inställningar (enhetsläget iPhone 12 Pro, Fast 4G och disabled network cache). Tog tre LCP och CLS mätningar och skrev median i mallen i performance.md
+- Fixade Hero bild så att det blir mindre
+- Jag la consumption chart i en egen div tillsammans med texten "laddar.."
+
+# 2026-10-12
+
+### Jia
+
+**Vad har jag gjort idag?**
+
+- Självstudier
+
+### Rabbiya
+
+**Vad har jag gjort idag?**
+
+- Skapade rendering.md dokument där skrev jag teamets beslutdokument att om Kraftlys portal ska renderas som SPA men SSR(Nuxt) eller SSG(statisk).
+
+### Leo
+
+**Vad har jag gjort idag?**
+
+- Skapade Lighthouse CI och tog fram prestandabudget och finns nu i vår pipeline.
