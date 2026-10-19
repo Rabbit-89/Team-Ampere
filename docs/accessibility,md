@@ -1,0 +1,29 @@
+# Tillgänglighet
+
+*Mål: WCAG 2.2 nivå AA. Kontrollerat med axe i komponenttesterna, Storybooks Accessibility-flik
+och en genomgång med tangentbordet. Storybook och axe körs lokalt (i pipelinen: M9).*
+
+## Komponentbiblioteket
+| Komponent | Ersätter | API |
+|---|---|---|
+| `KButton` | BaseButton, AppButton, … | `variant`: primary · secondary · text, `type`, `block`, texten är en slot |
+
+    npm run storybook    # komponenterna med stories, fliken Accessibility
+    npm run test:a11y    # axe-testerna (filerna *.a11y.test.js)
+
+## Vad vi åtgärdade
+| Brist | Var | Hittades med | Åtgärd (PR) |
+|---|---|---|---|
+| Fält med bara placeholder | LoginView | getByLabelText – **inte** axe | `<label for>` + `id` (#…) |
+
+## Tangentbordsgenomgång
+<Datum, browser, vilken miljö. Bara tangentbordet: Tab, Shift+Tab, Enter, mellanslag.>
+| Vy | Vad vi testade | Före | Efter |
+|---|---|---|---|
+| Översikt | Nå Fler spartips | nås inte (div) | ✅ nås, Enter och mellanslag fungerar |
+
+## Vad axe inte hittar
+<Det ni hittade som inget verktyg sa något om – och varför axe inte kan se det.>
+
+## Kända brister
+<Det ni sett men inte lagat i M8, och det ni inte testat (skärmläsare? zoom till 200 %?).>
