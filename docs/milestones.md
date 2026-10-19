@@ -134,3 +134,14 @@ varför (inte) Kubernetes, och regeln för flagga kontra rollback med tider. Gra
 [ x ] Testerna gröna – och om ni bytt import av ett bibliotek som mockas i testerna, är mocken flyttad med (inga getContext-fel i testloggen)
 
 [ x ] Ett beslutsdokument docs/decisions/rendering.md: SPA, SSR (Nuxt) eller SSG för portalen – jämförelse, beslut, och när beslutet ska omprövas
+
+# M8
+
+npm run test:a11y
+Test Files 13 passed (13)
+Tests 25 passed (25)
+Start at 11:17:06
+Duration 1.41s (transform 374ms, setup 961ms, import 995ms, tests 221ms, environment 7.05s)
+
+npm run build-storybook
+Storybook build completed successfully
