@@ -8,3 +8,6 @@ lhci-reports/
 # Hemligheter och lokal konfiguration – aldrig i repot
 .env
 .env.local
+# Generated Storybook build output
+storybook-static/
+*storybook.log
