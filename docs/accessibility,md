@@ -16,8 +16,11 @@ och en genomgång med tangentbordet. Storybook och axe körs lokalt (i pipelinen
 
 | Brist                           | Var                                                                        | Hittades med                  | Åtgärd (PR)                                                                        |
 | ------------------------------- | -------------------------------------------------------------------------- | ----------------------------- | ---------------------------------------------------------------------------------- |
-| Fält med bara placeholder       | LoginView                                                                  | getByLabelText – **inte** axe | `<label for>` + `id` (#…)                                                          |
 | Gamla och otillgängliga knappar | App.vue, DashboardView, InvoicesView, LoginView, MoveFormView, ProfileView | Inventering med grep          | Ersatta med KButton eller riktiga knappar/länkar; gamla knappkomponenter borttagna |
+| Fält med bara placeholder (E-postadress, Lösenord) | LoginView | kodläsning och getByLabelText – **inte** axe (axe godkänner placeholder) | Verifierade kopplingen `<label for>`/`id`; axe- och `getByLabelText`-test (#84) |
+| Fält utan label och utan placeholder (Namn, E-postadress, Adress) | ProfileView | kodläsning (axe-regeln `label` fäller dessa) | Kopplade varje fält till en synlig `<label for>` med matchande `id` (#84) |
+| Fält med bara placeholder (Ny adress, Postnummer, Ort, Inflyttningsdatum) och `<select>` utan label (Avtal) | MoveFormView | kodläsning | Kopplade varje fält och `<select>` till en synlig `<label for>` med matchande `id` (#84) |
+| E2E-test hittade fälten via `getByPlaceholder` | e2e/*.spec.js (4 filer) | kodläsning (`grep`) | Ersatte `getByPlaceholder` med `getByLabel` (#84) |
 
 ## Tangentbordsgenomgång
 
