@@ -2,7 +2,7 @@
   <div>
     <header v-if="$route.path !== '/login'" class="topbar">
       <div class="topbar-inner container">
-        <img src="./assets/logo.svg" class="logo" />
+        <img src="./assets/logo.svg" class="logo" alt="Kraftly" />
         <nav>
           <RouterLink to="/">Översikt</RouterLink>
           <RouterLink to="/fakturor">Fakturor</RouterLink>
