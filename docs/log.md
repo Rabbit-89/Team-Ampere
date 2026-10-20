@@ -547,3 +547,80 @@ Uppdaterat docs/performance.md enligt lärarens mall.
 **Vad har jag gjort idag?**
 
 - Skapade Lighthouse CI och tog fram prestandabudget och finns nu i vår pipeline.
+
+# 2026-10-19
+
+### Jia
+
+**Vad har jag gjort idag?**
+
+Jag har konfigurerat Storybook genom att skapa .storybook/main.mjs och .storybook/preview.js.
+
+Jag har också lagt till ett tillgänglighetstest för StatusChip i src/components/StatusChip.a11y.test.js samt skapat en Storybook-story i src/components/StatusChip.stories.js.
+
+Dessutom har jag lagt till storybook-static/ och storybook.log i .gitignore för att undvika att genererade filer och loggfiler checkas in i Git.
+
+Till sist skapade jag en PR och mergade den till main, så att hela teamet kan använda Storybook.
+
+### Rabbiya
+
+**Vad har jag gjort idag?**
+
+Jag jobbade med Spår 2 i M8.
+lade till labels på alla fälten.
+Uppdaterade även tests.
+skapade accessibility.md dokument
+Skrev test för inloggningen
+
+### Leo
+
+**Vad har jag gjort idag?**
+
+Självstudier
+
+# 2026-10-20
+
+### Jia
+
+**Vad har jag gjort idag?**
+
+Skapade den gemensamma komponenten KButton.vue.
+
+Ersatte äldre knappar och klickbara element med KButton i App.vue, LoginView.vue, ProfileView.vue, MoveFormView.vue, DashboardView.vue och InvoicesView.vue.
+
+Tog bort de gamla komponenterna BaseButton.vue och AppButton.vue efter migreringen.
+
+Uppdaterade docs/accessibility.md med komponentinformation, testresultat och kända brister.
+
+### Rabbiya
+
+**Vad har jag gjort idag?**
+
+Uppdaterade accessibility.md
+Skrev vad vi åtgärdaade
+
+### Leo
+
+**Vad har jag gjort idag?**
+
+Fyllt i och uppdaterat docs/accessibility.md med de tillgänglighetsförbättringar vi gjort.
+
+Ändrat sidans språk till svenska, uppdaterat sidtiteln och lagt till alternativtext på logotypen.
+
+Förbättrat kontrasten på hjälpt text och gjort fakturatabellen tydligare för hjälpmedel genom att lägga till korrekta tabellrubriker.
+
+## Tech Lead – byte
+
+### Jia lämnar över till Leo
+
+M6 – API-säkerhet och autentisering
+Vi har arbetat med API-säkerhet och autentisering. Vi har fokuserat på säker inloggning, hantering av tokens och skydd av API:er. Vi har också arbetat med att identifiera säkerhetsproblem och förbättra säkerheten i applikationen.
+
+M7 – Prestandaoptimering
+Vi har arbetat med att förbättra applikationens prestanda. Vi har fokuserat på Core Web Vitals, prestandabudget, bundle-analys, code splitting och lazy loading. Vi har också arbetat med att minska laddningstiderna och dokumentera våra prestandaförbättringar.
+
+M8 – Komponentbibliotek och tillgänglighet
+Vi har arbetat med komponentbiblioteket och förbättrat tillgängligheten i applikationen. Vi har fokuserat på WCAG, tangentbordsnavigation, fokus, ARIA och automatiserade tillgänglighetstester. Vi har också testat komponenterna och dokumenterat kända brister.
+
+Sammanfattning
+Under de senaste tre veckorna har vi fokuserat på tre viktiga områden: säkerhet, prestanda och tillgänglighet. Målet har varit att göra Kraftly-applikationen säkrare, snabbare och enklare att använda.
