@@ -2,15 +2,13 @@
   <div>
     <header v-if="$route.path !== '/login'" class="topbar">
       <div class="topbar-inner container">
-        <img src="./assets/logo.svg" class="logo" />
+        <img src="./assets/logo.svg" class="logo" alt="Kraftly" />
         <nav>
           <RouterLink to="/">Översikt</RouterLink>
           <RouterLink to="/fakturor">Fakturor</RouterLink>
           <RouterLink to="/flytt">Flyttanmälan</RouterLink>
           <RouterLink to="/profil">Mina uppgifter</RouterLink>
-          <KButton variant="text" class="logout" @click="logout">
-            Logga ut
-          </KButton>
+          <KButton variant="text" class="logout" @click="logout"> Logga ut </KButton>
         </nav>
       </div>
     </header>
@@ -21,16 +19,16 @@
 </template>
 
 <script setup>
-import { useRouter } from "vue-router";
-import { setAccessToken } from "./services/token.js";
-import KButton from "./components/KButton.vue";
+import { useRouter } from 'vue-router'
+import { setAccessToken } from './services/token.js'
+import KButton from './components/KButton.vue'
 
-const router = useRouter();
+const router = useRouter()
 
 const logout = () => {
-  setAccessToken(null);
-  router.push("/login");
-};
+  setAccessToken(null)
+  router.push('/login')
+}
 </script>
 
 <style>
