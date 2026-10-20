@@ -5,9 +5,9 @@
   padding: 0;
 }
 
-/* the focus ring looked cluttered in the demo, removed it */
-*:focus {
-  outline: none;
+:focus-visible {
+  outline: 3px solid #005fcc;
+  outline-offset: 3px;
 }
 
 body {
@@ -72,7 +72,7 @@ select {
 }
 
 .hint {
-  color: #b8c0cf;
+  color: #596579;
   font-size: 12px;
 }
 
