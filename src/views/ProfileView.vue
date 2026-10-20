@@ -9,17 +9,19 @@
       <input v-model="name" type="text" />
       <input v-model="email" type="text" />
       <input v-model="address" type="text" />
-      <AppButton color="#12b76a" @click="save">Spara ändringar</AppButton>
-      <button class="button-secondary" style="margin-left: 10px" @click="reset">
-        Ångra
-      </button>
+
+      <KButton @click="save">Spara ändringar</KButton>
+
+      <KButton variant="secondary" style="margin-left: 10px" @click="reset">
+        Återställ
+      </KButton>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
-import AppButton from "../components/AppButton.vue";
+import KButton from "../components/KButton.vue";
 import { useUserStore } from "../stores/user";
 import { isValidEmail } from "../utils/validateEmail";
 
