@@ -1,3 +1,4 @@
+
 <template>
   <div>
     <h1>Mina uppgifter</h1>
@@ -6,13 +7,38 @@
         <span class="field-label">Kundnummer</span>
         <span>{{ store.user.customerNo }}</span>
       </div>
-      <input v-model="name" type="text" />
-      <input v-model="email" type="text" />
-      <input v-model="address" type="text" />
+
+      <label for="profile-name">Namn</label>
+      <input
+        id="profile-name"
+        v-model="name"
+        type="text"
+        autocomplete="name"
+      />
+
+      <label for="profile-email">E-postadress</label>
+      <input
+        id="profile-email"
+        v-model="email"
+        type="email"
+        autocomplete="email"
+      />
+
+      <label for="profile-address">Adress</label>
+      <input
+        id="profile-address"
+        v-model="address"
+        type="text"
+        autocomplete="street-address"
+      />
 
       <KButton @click="save">Spara ändringar</KButton>
 
-      <KButton variant="secondary" style="margin-left: 10px" @click="reset">
+      <KButton
+        variant="secondary"
+        style="margin-left: 10px"
+        @click="reset"
+      >
         Återställ
       </KButton>
     </div>
@@ -38,11 +64,16 @@ const reset = () => {
 
 const save = () => {
   if (!isValidEmail(email.value)) {
-    //Adding an alert for now, will remove it later and add a proper error message in the UI
+    // Adding an alert for now; a proper UI error message will be added later.
     alert("Ogiltig e-postadress. Vänligen ange en giltig e-postadress.");
     return;
   }
-  store.save({ name: name.value, email: email.value, address: address.value });
+
+  store.save({
+    name: name.value,
+    email: email.value,
+    address: address.value,
+  });
 };
 
 onMounted(async () => {
@@ -52,13 +83,22 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+label {
+  display: block;
+  font-size: 13px;
+  color: #4a5468;
+  margin-bottom: 4px;
+}
+
 .field {
   display: flex;
   justify-content: space-between;
   padding: 8px 0 14px;
   font-size: 14px;
 }
+
 .field-label {
   color: #7c8698;
 }
 </style>
+
