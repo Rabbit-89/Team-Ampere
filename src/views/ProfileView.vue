@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <h1>Mina uppgifter</h1>
@@ -9,12 +8,7 @@
       </div>
 
       <label for="profile-name">Namn</label>
-      <input
-        id="profile-name"
-        v-model="name"
-        type="text"
-        autocomplete="name"
-      />
+      <input id="profile-name" v-model="name" type="text" autocomplete="name" />
 
       <label for="profile-email">E-postadress</label>
       <input
@@ -34,11 +28,7 @@
 
       <KButton @click="save">Spara ändringar</KButton>
 
-      <KButton
-        variant="secondary"
-        style="margin-left: 10px"
-        @click="reset"
-      >
+      <KButton variant="secondary" style="margin-left: 10px" @click="reset">
         Återställ
       </KButton>
     </div>
@@ -101,4 +91,3 @@ label {
   color: #7c8698;
 }
 </style>
-

@@ -1,4 +1,3 @@
-
 <template>
   <div class="login-wrap">
     <div class="card login-card">
@@ -22,9 +21,7 @@
           autocomplete="current-password"
         />
 
-        <KButton type="submit" block :disabled="loading">
-          Logga in
-        </KButton>
+        <KButton type="submit" block :disabled="loading"> Logga in </KButton>
       </form>
 
       <p v-if="errorMessage" role="alert" class="error-message">
