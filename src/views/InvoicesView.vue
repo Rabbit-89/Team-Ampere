@@ -22,9 +22,9 @@
             }}</span>
           </td>
           <td>
-            <div class="download" @click="downloadInvoice(invoice)">
+            <KButton variant="text" @click="downloadInvoice(invoice)">
               Ladda ner
-            </div>
+            </KButton>
           </td>
         </tr>
       </table>
@@ -36,6 +36,7 @@
 import { ref, onMounted } from "vue";
 import { fetchInvoices } from "../services/api";
 import { statusChipClass } from "../utils/statusChip";
+import KButton from "../components/KButton.vue";
 
 const invoices = ref([]);
 
