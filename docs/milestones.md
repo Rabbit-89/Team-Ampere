@@ -137,6 +137,20 @@ varför (inte) Kubernetes, och regeln för flagga kontra rollback med tider. Gra
 
 # M8
 
+[ x ] Gemensamma komponenter extraherade: EN Button-komponent (KButton) ersätter alla tre varianter och div-knapparna. Inga BaseButton, AppButton, .btn eller .button-secondary kvar, och inget element med @click som inte är en knapp eller länk
+
+[ x ] Labels, fokusstilar, kontrast och lang åtgärdade: varje fält har en kopplad label (inte bara placeholder), fokus syns vid Tab överallt (:focus-visible, ingen outline: none kvar), text klarar 4,5:1, <html lang="sv">. Även alt-texter och fakturatabellens scope. <label for> + id räcker – KField är inte ett krav i M8
+
+[ x ] Storybook lokalt med stories för KButton och de gemensamma komponenter ni ändrar i M8: npm run storybook startar, npm run build-storybook lyckas, och Accessibility-fliken visar Violations 0 på varje story
+
+[ x ] axe-tester gröna lokalt: ett *.a11y.test.js för KButton och ett för inloggningen (axe + getByLabelText); npm run test:a11y och npm run test:run gröna. Klistra in sista raderna ur körningen
+Kommando:
+`grep -rn "BaseButton\|AppButton\|button-secondary\|class=\"btn" src --include="*.vue"`
+
+Resultat: Ingen output.
+
+[ x ] Tangentbordsnavigering verifierad, dokumenterad i docs/accessibility.md: varje vy genomgången med bara tangentbordet, före och efter, med resultat per vy
+
 npm run test:a11y
 Test Files 13 passed (13)
 Tests 25 passed (25)
