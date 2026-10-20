@@ -25,7 +25,9 @@
               }}</span>
             </td>
             <td>
-              <KButton variant="text" @click="downloadInvoice(invoice)"> Ladda ner </KButton>
+              <KButton variant="text" @click="downloadInvoice(invoice)">
+                Ladda ner
+              </KButton>
             </td>
           </tr>
         </tbody>
@@ -35,22 +37,22 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { fetchInvoices } from '../services/api'
-import { statusChipClass } from '../utils/statusChip'
-import KButton from '../components/KButton.vue'
+import { ref, onMounted } from "vue";
+import { fetchInvoices } from "../services/api";
+import { statusChipClass } from "../utils/statusChip";
+import KButton from "../components/KButton.vue";
 
-const invoices = ref([])
+const invoices = ref([]);
 
 onMounted(async () => {
-  invoices.value = await fetchInvoices()
-})
+  invoices.value = await fetchInvoices();
+});
 
 const downloadInvoice = (invoice) => {
   // PDF generation coming in phase 2 per the quote
-  console.log('download', invoice.id)
-  alert('Nedladdning kommer snart')
-}
+  console.log("download", invoice.id);
+  alert("Nedladdning kommer snart");
+};
 </script>
 
 <style scoped>
