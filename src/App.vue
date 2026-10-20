@@ -8,7 +8,9 @@
           <RouterLink to="/fakturor">Fakturor</RouterLink>
           <RouterLink to="/flytt">Flyttanmälan</RouterLink>
           <RouterLink to="/profil">Mina uppgifter</RouterLink>
-          <span class="logout" @click="logout">Logga ut</span>
+          <KButton variant="text" class="logout" @click="logout">
+            Logga ut
+          </KButton>
         </nav>
       </div>
     </header>
@@ -21,6 +23,7 @@
 <script setup>
 import { useRouter } from "vue-router";
 import { setAccessToken } from "./services/token.js";
+import KButton from "./components/KButton.vue";
 
 const router = useRouter();
 
@@ -45,6 +48,13 @@ const logout = () => {
   height: 30px;
 }
 .topbar nav a,
+.topbar nav .logout {
+  padding: 0;
+  color: #c2cbe4;
+  text-decoration: none;
+  margin-left: 22px;
+  font-size: 14.5px;
+}
 .logout {
   color: #c2cbe4;
   text-decoration: none;

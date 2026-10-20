@@ -6,8 +6,10 @@
         <span class="field-label">Kundnummer</span>
         <span>{{ store.user.customerNo }}</span>
       </div>
+
       <label for="profile-name">Namn</label>
       <input id="profile-name" v-model="name" type="text" autocomplete="name" />
+
       <label for="profile-email">E-postadress</label>
       <input
         id="profile-email"
@@ -15,6 +17,7 @@
         type="email"
         autocomplete="email"
       />
+
       <label for="profile-address">Adress</label>
       <input
         id="profile-address"
@@ -22,17 +25,19 @@
         type="text"
         autocomplete="street-address"
       />
-      <AppButton color="#12b76a" @click="save">Spara ändringar</AppButton>
-      <button class="button-secondary" style="margin-left: 10px" @click="reset">
-        Ångra
-      </button>
+
+      <KButton @click="save">Spara ändringar</KButton>
+
+      <KButton variant="secondary" style="margin-left: 10px" @click="reset">
+        Återställ
+      </KButton>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
-import AppButton from "../components/AppButton.vue";
+import KButton from "../components/KButton.vue";
 import { useUserStore } from "../stores/user";
 import { isValidEmail } from "../utils/validateEmail";
 
@@ -49,11 +54,16 @@ const reset = () => {
 
 const save = () => {
   if (!isValidEmail(email.value)) {
-    //Adding an alert for now, will remove it later and add a proper error message in the UI
+    // Adding an alert for now; a proper UI error message will be added later.
     alert("Ogiltig e-postadress. Vänligen ange en giltig e-postadress.");
     return;
   }
-  store.save({ name: name.value, email: email.value, address: address.value });
+
+  store.save({
+    name: name.value,
+    email: email.value,
+    address: address.value,
+  });
 };
 
 onMounted(async () => {
@@ -76,6 +86,7 @@ label {
   padding: 8px 0 14px;
   font-size: 14px;
 }
+
 .field-label {
   color: #7c8698;
 }

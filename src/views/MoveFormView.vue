@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <h1>Flyttanmälan</h1>
+  <form @submit.prevent="submit">
     <div class="card" style="max-width: 560px">
+      <h1>Flyttanmälan</h1>
       <p style="margin-bottom: 14px">
         Fyll i uppgifterna nedan så flyttar vi ditt elavtal.
       </p>
@@ -35,7 +35,7 @@
         <option>Fast pris 1 år</option>
         <option>Fast pris 3 år</option>
       </select>
-      <BaseButton @click="submit">Skicka flyttanmälan</BaseButton>
+      <KButton type="submit">Skicka flyttanmälan</KButton>
       <p class="hint" style="margin-top: 8px">
         Anmälan måste göras senast 14 dagar före flytt
       </p>
@@ -43,12 +43,12 @@
         Tack! Referensnummer: {{ reference }}
       </p>
     </div>
-  </div>
+  </form>
 </template>
 
 <script setup>
 import { ref, reactive } from "vue";
-import BaseButton from "../components/BaseButton.vue";
+import KButton from "../components/KButton.vue";
 import { submitMove } from "../services/api";
 
 const form = reactive({
