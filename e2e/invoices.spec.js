@@ -42,8 +42,8 @@ test("fakturasidan visar det API:et svarar – även en faktura servern aldrig h
   );
 
   await page.goto("/login");
-  await page.getByPlaceholder("E-postadress").fill("test@example.com");
-  await page.getByPlaceholder("Lösenord").fill("test-password");
+  await page.getByLabel("E-postadress").fill("test@example.com");
+  await page.getByLabel("Lösenord").fill("test-password");
   await page.getByRole("button", { name: "Logga in" }).click();
   await page.waitForURL("**/");
   await page.getByRole("link", { name: "Fakturor" }).click();
@@ -77,8 +77,8 @@ test("API-data renderas inte som HTML", async ({ page }) => {
 
   await page.goto("/login");
 
-  await page.getByPlaceholder("E-postadress").fill("test@example.com");
-  await page.getByPlaceholder("Lösenord").fill("test-password");
+  await page.getByLabel("E-postadress").fill("test@example.com");
+  await page.getByLabel("Lösenord").fill("test-password");
   await page.getByRole("button", { name: "Logga in" }).click();
 
   await page.waitForURL("**/");
