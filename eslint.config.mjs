@@ -23,9 +23,9 @@ export default [
   },
   // skripten i scripts/ körs i Node, inte i browsern
   {
-    files: ['scripts/**/*.mjs'],
+    files: ["scripts/**/*.mjs"],
     languageOptions: { globals: globals.node },
-    rules: { 'no-console': 'off' }
+    rules: { "no-console": "off" },
   },
   prettier,
 ];
