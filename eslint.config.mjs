@@ -21,5 +21,11 @@ export default [
       "vue/multi-word-component-names": "off",
     },
   },
+  // skripten i scripts/ körs i Node, inte i browsern
+  {
+    files: ['scripts/**/*.mjs'],
+    languageOptions: { globals: globals.node },
+    rules: { 'no-console': 'off' }
+  },
   prettier,
 ];
