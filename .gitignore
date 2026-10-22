@@ -11,3 +11,5 @@ lhci-reports/
 # Generated Storybook build output
 storybook-static/
 *storybook.log
+diff.patch
+review.md
