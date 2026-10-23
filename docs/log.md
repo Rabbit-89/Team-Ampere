@@ -633,15 +633,13 @@ Sjukskriven
 
 ### Jia
 
-Jia
-
 **Vad har jag gjort idag?**
 
 - Skapat ett issue på GitHub.
 - Diskuterat workshopen Chatta med Kraftly med gruppen.
 - Dokumenterat gruppens diskussioner och slutsatser i docs/sustainability.md.
 
-Rabbiya
+### Rabbiya
 
 **Vad har jag gjort idag?**
 
@@ -652,7 +650,7 @@ Rabbiya
 
 # 2026-10-23 · Boiler Room 3
 
-Jia
+### Jia
 
 **Gjort:**
 Integrerat `KField` i `MoveFormView.vue` och kopplat felmeddelanden till respektive fält med `aria-describedby` och `aria-invalid`.
@@ -674,7 +672,7 @@ Spår 2.
 **Fastnat på:**
 Alla CI-jobb gick inte igenom på grund av felaktig skiftlägesanvändning i filnamn och importvägar. Jag håller på att ändra `Kfield` till `KField` för att få filnamnen och importerna att stämma överens.
 
-Rabbiya
+### Rabbiya
 
 **Gjort**:
 
@@ -704,3 +702,7 @@ Rabbiya
 
 - Tre av fyra KField-tester föll först: jest-dom-matcherna (`toHaveAttribute`, `toBeInvalid`) var inte aktiverade i testfilen. Lösning: `import "@testing-library/jest-dom/vitest"`.
 - Därefter föll två tester på grund av att DOM:en inte städades mellan testerna. Alla fält fick samma id (`k-field-v-0`), så testet hittade fel input. Lösning: `afterEach(cleanup)`, som `KButton.a11y.test.js` redan har.
+
+### Leo
+
+Sjukskriven
