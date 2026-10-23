@@ -20,7 +20,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test:a11y": "vitest run --config vitest.config.js",
-    "ai-review": "node scripts/ai-review.mjs"
+    "ai-review": "node scripts/ai-review.mjs",
+    "co2": "node scripts/co2.mjs"
   },
   "lint-staged": {
     "*.{js,vue}": [
@@ -49,6 +50,7 @@
     "@storybook/vue3-vite": "^10.6.1",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/vue": "^8.1.0",
+    "@tgwf/co2": "^0.19.0",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/test-utils": "^2.5.0",
     "cypress": "^15.21.1",
