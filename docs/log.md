@@ -624,3 +624,83 @@ Vi har arbetat med komponentbiblioteket och förbättrat tillgängligheten i app
 
 Sammanfattning
 Under de senaste tre veckorna har vi fokuserat på tre viktiga områden: säkerhet, prestanda och tillgänglighet. Målet har varit att göra Kraftly-applikationen säkrare, snabbare och enklare att använda.
+
+# 2026-10-22
+
+### Leo
+
+Sjukskriven
+
+### Jia
+
+**Vad har jag gjort idag?**
+
+- Skapat ett issue på GitHub.
+- Diskuterat workshopen Chatta med Kraftly med gruppen.
+- Dokumenterat gruppens diskussioner och slutsatser i docs/sustainability.md.
+
+### Rabbiya
+
+**Vad har jag gjort idag?**
+
+- lagt in APT:t nyckel i repot
+- Installera Anthropics officiella SDK
+- skapa script och lagde till ai-review i workflow
+- skapade ai-in-pipeline.md
+
+# 2026-10-23 · Boiler Room 3
+
+### Jia
+
+**Gjort:**
+Integrerat `KField` i `MoveFormView.vue` och kopplat felmeddelanden till respektive fält med `aria-describedby` och `aria-invalid`.
+Skapat `MoveFormView.a11y.test.js` för att testa tillgängligheten för postnummerfältet.
+Verifierat att tillgänglighetstestet passerar: `Tests 1 passed (1)`.
+Testat formuläret manuellt och kontrollerat att ogiltiga fält får en röd ram.
+
+**Grönt:**
+Tillgänglighetstestet för `MoveFormView` passerar.
+37 tester passerade i den senaste testkörningen.
+KField-PR: https://github.com/Rabbit-89/Team-Ampere/pull/92
+
+**Kvar till M9-taggen tisdag:**
+Spår 2.
+
+**En siffra från i dag:**
+37 tester passerade i testkörningen.
+
+**Fastnat på:**
+Alla CI-jobb gick inte igenom på grund av felaktig skiftlägesanvändning i filnamn och importvägar. Jag håller på att ändra `Kfield` till `KField` för att få filnamnen och importerna att stämma överens.
+
+### Rabbiya
+
+**Gjort**:
+
+- Byggde `KField` (src/components/KField.vue): ett textfält med obligatorisk label, unikt id via `useId()`, hjälptext och felmeddelande kopplade med `aria-describedby` samt `aria-invalid`.
+- Skrev testet `KField.a11y.test.js` (label, hjälptext, fel och axe) och storyn `KField.stories.js` med tre varianter.
+- Lade till jobbet `Storybook` i `ci.yml` (bygger Storybook och laddar upp artefakten `storybook`).
+
+**Grönt:**
+
+- KField-testerna: Test files (1) passed .Test files 4 av 4 gröna (`npx vitest run KField.a11y`)
+- Storybook-jobbet: https://github.com/Rabbit-89/Team-Ampere/actions/runs/39934638609/job/120351073948
+- KField-PR: https://github.com/Rabbit-89/Team-Ampere/pull/92
+- Storybook-PR: https://github.com/Rabbit-89/Team-Ampere/pull/91
+
+**Kvar till M9-taggen tisdag:**
+
+Spår 2: hallbarhet
+
+**En siffra från i dag:**
+
+- Tiden för Storybook-jobbet: 50s
+- KField-testerna: Test files (1 passed ) .Test files 4 av 4 gröna
+
+**Fastnat på:**
+
+- Tre av fyra KField-tester föll först: jest-dom-matcherna (`toHaveAttribute`, `toBeInvalid`) var inte aktiverade i testfilen. Lösning: `import "@testing-library/jest-dom/vitest"`.
+- Därefter föll två tester på grund av att DOM:en inte städades mellan testerna. Alla fält fick samma id (`k-field-v-0`), så testet hittade fel input. Lösning: `afterEach(cleanup)`, som `KButton.a11y.test.js` redan har.
+
+### Leo
+
+Sjukskriven
