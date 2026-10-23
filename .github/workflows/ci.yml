@@ -112,7 +112,7 @@ jobs:
   publish:
     name: Image → GHCR
     runs-on: ubuntu-latest
-    needs: [quality,e2e, lighthouse]
+    needs: [quality, build, e2e, lighthouse]
     permissions:
       contents: read
       packages: write
