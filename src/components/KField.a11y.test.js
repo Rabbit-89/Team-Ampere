@@ -2,7 +2,7 @@ import "@testing-library/jest-dom/vitest";
 import { afterEach, describe, it, expect } from "vitest";
 import { cleanup, render, screen } from "@testing-library/vue";
 import { axe } from "jest-axe";
-import KField from "./Kfield.vue";
+import KField from "./KField.vue";
 
 // Cleanup after each test to avoid memory leaks and ensure a clean state for the next test.
 afterEach(() => {
