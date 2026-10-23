@@ -7,21 +7,18 @@
         <span>{{ store.user.customerNo }}</span>
       </div>
 
-      <label for="profile-name">Namn</label>
-      <input id="profile-name" v-model="name" type="text" autocomplete="name" />
+      <KField v-model="name" label="Namn" type="text" autocomplete="name" />
 
-      <label for="profile-email">E-postadress</label>
-      <input
-        id="profile-email"
+      <KField
         v-model="email"
+        label="E-postadress"
         type="email"
         autocomplete="email"
       />
 
-      <label for="profile-address">Adress</label>
-      <input
-        id="profile-address"
+      <KField
         v-model="address"
+        label="Adress"
         type="text"
         autocomplete="street-address"
       />
@@ -40,6 +37,7 @@ import { ref, onMounted } from "vue";
 import KButton from "../components/KButton.vue";
 import { useUserStore } from "../stores/user";
 import { isValidEmail } from "../utils/validateEmail";
+import KField from "../components/KField.vue";
 
 const store = useUserStore();
 const name = ref("");

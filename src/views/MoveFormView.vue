@@ -5,28 +5,32 @@
       <p style="margin-bottom: 14px">
         Fyll i uppgifterna nedan så flyttar vi ditt elavtal.
       </p>
-      <label for="move-address">Ny adress</label>
-      <input
-        id="move-address"
+      <KField
         v-model="form.address"
-        type="text"
-        placeholder="Ny adress"
+        label="Ny adress"
+        autocomplete="street-address"
+        :error="errors.address"
       />
-      <label for="move-zip">Postnummer</label>
-      <input
-        id="move-zip"
+
+      <KField
         v-model="form.zip"
-        type="text"
-        placeholder="Postnummer"
+        label="Postnummer"
+        inputmode="numeric"
+        autocomplete="postal-code"
+        :error="errors.zip"
       />
-      <label for="move-city">Ort</label>
-      <input id="move-city" v-model="form.city" type="text" placeholder="Ort" />
-      <label for="move-date">Inflyttningsdatum</label>
-      <input
-        id="move-date"
+
+      <KField
+        v-model="form.city"
+        label="Ort"
+        autocomplete="address-level2"
+        :error="errors.city"
+      />
+
+      <KField
         v-model="form.date"
-        type="text"
-        placeholder="Inflyttningsdatum (ÅÅÅÅ-MM-DD)"
+        label="Inflyttningsdatum (ÅÅÅÅ-MM-DD)"
+        :error="errors.date"
       />
       <label for="move-contract">Avtal</label>
       <select id="move-contract" v-model="form.contract">
@@ -49,7 +53,9 @@
 <script setup>
 import { ref, reactive } from "vue";
 import KButton from "../components/KButton.vue";
+import KField from "../components/KField.vue";
 import { submitMove } from "../services/api";
+import { validateMove } from "../utils/validateMove.js";
 
 const form = reactive({
   address: "",
@@ -58,10 +64,28 @@ const form = reactive({
   date: "",
   contract: "",
 });
+
 const reference = ref(null);
 
+const errors = reactive({
+  address: "",
+  zip: "",
+  city: "",
+  date: "",
+});
+
 const submit = async () => {
-  // TODO validation
+  const validation = validateMove(form);
+
+  errors.address = validation.address ? "" : "Ny adress måste fyllas i";
+  errors.zip = validation.zip ? "" : "Postnummer ska vara fem siffror";
+  errors.city = validation.city ? "" : "Ort måste fyllas i";
+  errors.date = validation.date ? "" : "Inflyttningsdatum måste fyllas i";
+
+  if (Object.values(validation).some((valid) => !valid)) {
+    return;
+  }
+
   const res = await submitMove(form);
   reference.value = res.ref;
 };
