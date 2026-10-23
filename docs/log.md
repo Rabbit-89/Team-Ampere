@@ -689,9 +689,7 @@ Alla CI-jobb gick inte igenom på grund av felaktig skiftlägesanvändning i fil
 
 **Kvar till M9-taggen tisdag:**
 
-- Byta in KField i Inloggning och Profil
-- Flyttanmälan: validering med feltexter (`validateMove` returnerar bara true/false), rött test först, sedan inbyte
-- Göra Storybook till required check när jobbet har körts en gång
+Spår 2: hallbarhet
 
 **En siffra från i dag:**
 
