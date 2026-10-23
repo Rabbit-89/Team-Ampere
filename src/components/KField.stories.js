@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import KField from "./Kfield.vue";
+import KField from "./KField.vue";
 
 export default {
   title: "Komponenter/KField",
