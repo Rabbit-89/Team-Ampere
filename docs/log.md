@@ -704,3 +704,32 @@ Spår 2: hallbarhet
 ### Leo
 
 Sjukskriven
+
+# 2026-10-26
+
+### Rabbiya
+
+**Vad har du gjort idag?**
+
+- Skapade grenen hallbarhet och installerade @tgwf/co2@0.19.0.
+- Lade till skriptet scripts/co2.mjs och co2-skriptet i package.json. Skriptet summerar index.html och assets/ i dist/ och räknar g CO2e per besök och kg per månad.
+- Byggde appen på main (efter M7) och körde npm run co2: … kB per besök, … kg CO2e per månad (SE).
+  -Skapade docs/sustainability.md med tabellen Siffrorna och avsnittet Metoden.
+
+### Jia
+
+**Vad har du gjort idag?**
+
+Självstudier
+
+### Leo
+
+**Vad har du gjort idag?**
+
+Sjuk
+
+# 2026-10-27
+
+### Leo
+
+Fyllt i ai-in-pipeline.md med hjälp av mina klasskamrater samt daglig log.
