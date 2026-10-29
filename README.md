@@ -35,6 +35,8 @@ docker compose up --build
 
 Öppna http://localhost:8080.
 
+> **Windows:** om containern kraschar med `40-runtime-config.sh: not found` har Git gjort om radslut till CRLF. Kör `git config core.autocrlf input`, klona om (eller konvertera `docker/40-runtime-config.sh` till LF) och bygg igen.
+
 **2b. Utan Docker**
 
 ```
