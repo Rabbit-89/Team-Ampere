@@ -15,7 +15,7 @@ Båda körs på Renders gratisnivå och somnar efter 15 minuters inaktivitet. F�
 
 ## Kom igång
 
-Du behöver Git och Docker (eller Node 20+ om du kör utan Docker).
+Du behöver Git och Docker (eller **Node 22** om du kör utan Docker; nyare versioner som Node 24 ger fel vid `npm ci` i Docker-bygget).
 
 **1. Hämta koden och skapa din `.env`**
 
@@ -42,6 +42,15 @@ npm install
 npm run api     # mock-API på localhost:4000 (låt det vara igång)
 npm run dev     # i en ny terminal, öppna http://localhost:5173
 ```
+
+För end-to-end-tester med Playwright, installera Chromium en gång:
+
+```
+npx playwright install chromium
+npm run e2e:pw
+```
+
+Playwright startar själv mock-API:t och utvecklingsservern när testerna körs. Cypress finns också som beroende, men dess stora binär behövs inte för Playwright-testerna. Hoppa över nedladdningen av den vid installation med `CYPRESS_INSTALL_BINARY=0 npm install` (PowerShell: `$env:CYPRESS_INSTALL_BINARY=0; npm install`).
 
 **3. Hur vet jag att det fungerar?**
 
