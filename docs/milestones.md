@@ -159,3 +159,32 @@ Duration 1.41s (transform 374ms, setup 961ms, import 995ms, tests 221ms, environ
 
 npm run build-storybook
 Storybook build completed successfully
+
+# M9
+
+[x] Komponentbiblioteket i pipelinen: KField (label obligatorisk, useId(), aria-describedby för hjälptext och fel, aria-invalid) används i inloggning, profil och flyttanmälan, med story (Violations 0) och test · ett jobb Storybook i ci.yml (npm run build-storybook, artefakt), required check
+
+[x] Ett AI-steg i pipelinen, utvärderat på riktiga PR:ar: ai-review.yml + scripts/ai-review.mjs postar granskningspunkter som kommentar, som förslag – aldrig required check. Utvärdering på minst tre av teamets riktiga PR:ar: tabellen träff / miss / oavgjord, två exempel (en träff, en miss, med citat) och regeln (när ni litar på den, vad ni gör när ni inte håller med) – allt i ett dokument, docs/ai-in-pipeline.md
+
+[x] Hållbarhetssiffran kopplad till M7 + ett etikfall: docs/sustainability.md med tabellen Före M7 / Efter M7 i kB per besök → kg CO2e per månad med scripts/co2.mjs (co2.js, Sustainable Web Design-modellen, svensk elmix, 40 000 kunder i månaden, antagandena utskrivna), tre meningar om metoden och vad som inte räknas · ett etikfall, "Chatta med Kraftly": situationen, ert beslut, varför, villkor
+
+# M10
+
+[ ] Dokumentationen komplett:
+
+- README klarar nya kollegan-testet – en person utanför teamet startar appen lokalt med bara README och kan svara på de fem frågorna med bara repot;
+- luckorna från torsdagens övning 1 (partnerteamets issue) är åtgärdade eller står som känd brist
+- docs/architecture.md med en arkitekturskiss i Mermaid (vad pratar med vad: webbläsare → CDN/nginx → API; miljöerna dev/staging/prod) och lagren i frontend
+- minst tre beslutsdokument i docs/decisions/ för projektets tre viktigaste beslut, i mallen Datum · Beslut · Bakgrund · Alternativ · Motivering · Konsekvenser (omprövas om …) – befintliga räknas; ett efterhandsskrivet beslut märks med raden "Efterhandsskrivet v.11 – beslutet togs i vecka N" · README har en dokumentationstabell som pekar på allt i docs/
+
+| Fråga                                                      | Var svaret står                                    |
+| ---------------------------------------------------------- | -------------------------------------------------- |
+| 1. Starta lokalt, och hur vet jag att den fungerar?        | README, _Kom igång_ + …                            |
+| 2. Var bor hemligheterna, och hur får jag dem?             | …                                                  |
+| 3. Hur når en ändring prod – och hur rullar man tillbaka?  | …                                                  |
+| 4. Varför ser arkitekturen ut så här – var finns besluten? | `docs/architecture.md`, `docs/decisions/README.md` |
+| 5. Vad är känt trasigt eller medvetet ogjort?              | `docs/known-issues.md`, `docs/readiness.md`        |
+
+[ ] Inga kända kritiska brister: docs/readiness.md = tabellen från Canvas-sidan Produktionsfärdig app – checklistan med en kolumn Status per rad: klart · känd brist · saknas – och utgår (beslut 12/10) för det som utgick, v.12 för raden Release (+ en kolumn Bevis med länk eller fil) · docs/known-issues.md med en rad per känd brist och saknas: brist, påverkan, varför den inte är åtgärdad (vem äger den, vad det skulle kosta) · Kritisk = kunddata kan läcka, inloggningen går att kringgå, prod går inte att rulla tillbaka, eller pipelinen är röd på main – sådant får inte stå kvar som "känd brist"; allt annat får det, om det står skrivet
+
+[ ] Demon förberedd: docs/demo.md = körschema för slutdemon torsdag 5/11 (10 min demo + 5 min frågor per team): ordningen, vem visar vad, i prod, vilka flikar som ska vara öppna, reservplan (skärmdump eller inspelning om prod sover) · en generalrepetition genomförd måndag 2/11 eller tisdag 3/11 och loggad i docs/log.md (datum, hur lång den blev, vad som ändrades) · demo-ansvarig utsedd (i team om fyra: den som inte varit tech lead)
