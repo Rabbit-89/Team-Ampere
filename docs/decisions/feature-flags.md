@@ -36,3 +36,12 @@ En flagga som saknas eller har ett annat värde än exakt `true` behandlas som a
 När Norge-funktionen inte längre behövs ska feature flaggen och den tillhörande koden tas bort. Teamet behöver därför hålla reda på vilka flaggor som finns och rensa bort gamla flaggor.
 
 Konfigurationen innehåller endast publika feature flag-värden och inga hemligheter eller API-nycklar.
+
+## Omprövas om
+
+Vi behöver ompröva beslutet om:
+
+- Vi inte längre behöver aktivera eller stänga av funktioner separat i staging och produktion.
+- Körtidskonfigurationen inte fungerar som förväntat eller orsakar problem vid deployment.
+- Antalet feature flags ökar så mycket att det blir svårt att hålla reda på vilka funktioner som är aktiverade i olika miljöer.
+- Vi behöver en mer avancerad lösning för feature flags, till exempel för att styra funktioner för olika användargrupper.
