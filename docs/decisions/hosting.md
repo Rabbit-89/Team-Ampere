@@ -1,76 +1,50 @@
 # Beslut: Hosting av Team-Ampere (Kraftly)
 
-## Datum
-
-2026-09-22
-
-## Beslut
-
-Vi kör staging på **Render**, som två separata webbtjänster byggda från samma
-Dockerfiler som vi redan använder lokalt (`Dockerfile` för frontend/nginx,
-`mock-api/Dockerfile` för mock-API:t). CI bygger och pushar imagen till GHCR,
-och en deploy-hook talar om för Render vilken image-tag som ska köras.
+**Datum:** 2026-09-22 · **Beslut:** Vi använder Render för staging med två separata webbtjänster som kör Docker-images för frontend/nginx och mock-API.
 
 ## Bakgrund
 
-Vår app består av två containrar som pratar med varandra via en nyckel som
-sätts på servern:
+Vår app består av två containrar som kommunicerar via en nyckel som hanteras på servern:
 
-- **web** (nginx) serverar den byggda Vue-appen och proxar `/api/*` vidare,
-  och lägger på headern `X-Api-Key` åt oss (se `nginx.conf.template`).
-- **api** (mock-API:t) svarar bara på anrop som har rätt `X-Api-Key`.
-  Lokalt körs båda med `docker compose`. I molnet behövde vi en plattform som
-  kan köra våra Dockerfiler som de är, låta oss sätta miljövariabler
-  (`API_URL`, `API_KEY`) per tjänst, och gå att koppla ihop med GitHub
-  Actions så att `main` deployas automatiskt efter att testerna gått igenom.
+- **web (nginx):** Serverar den byggda Vue-appen, proxar `/api/*` vidare och lägger till headern `X-Api-Key` (se `nginx.conf.template`).
+- **api (mock-API):** Svarar bara på anrop som innehåller rätt `X-Api-Key`.
+
+Lokalt körs båda containrarna med `docker compose`. I molnet behövde vi en plattform som kunde köra våra Dockerfiler, hantera miljövariabler (`API_URL`, `API_KEY`) per tjänst och integreras med GitHub Actions så att ändringar på `main` kan deployas automatiskt efter godkända tester.
 
 ## Alternativ vi jämförde
 
-|                                     | **Render**                                                                                                                                                                         |     | **Azure Container Apps**                                                                                                                                       | **Vercel / Netlify**                                                                                                                                                            |
-| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Kör vår image som den är?           | Ja – bygger direkt från Dockerfile, eller kör en färdig image från ett register (GHCR) via "Existing Image".                                                                       |     | Ja – Container Apps kan peka på valfritt register, inklusive GHCR.                                                                                             | Nej – båda är byggda för statiska sajter/serverless-funktioner. Ingen av dem kör en generell Dockerfile med en långlevande nginx-process framför ett eget API. Uteslöts direkt. |
-| Kostnad & kort                      | Gratis-nivå finns för webbtjänster, men Render kräver ofta ett betalkort för kontoverifiering redan på free-planen (en tillfällig $1-reservation). Betald start: ca $7/tjänst/mån. |     | Liknande free tier som Cloud Run (180 000 vCPU-sekunder, 2 miljoner anrop/mån), del av Azures allmänna free-tier-konto som också kräver kort vid registrering. | –                                                                                                                                                                               |
-| Var hamnar nyckeln?                 | I Render → Environment, per tjänst. Nyckeln injiceras i nginx-configen vid containerstart och skickas aldrig till klienten – samma modell som lokalt.                              |     | Som miljövariabel eller "secret" i Container Apps-resursen, med möjlighet att koppla till Azure Key Vault.                                                     | –                                                                                                                                                                               |
-| Kallstart                           | Free-tjänster somnar efter 15 min inaktivitet, ~30–60 sekunder att vakna. Betald Starter-nivå har ingen kallstart.                                                                 |     | Samma modell (Consumption plan skalar till noll); kallstart i samma härad som Cloud Run, styrs av `minReplicas`.                                               | –                                                                                                                                                                               |
-| Hur mycket är leverantörsspecifikt? | Bara **deploy-hooken** (URL:en CI POST:ar till) och sättet vi anger `imgURL` som query-parameter. Allt annat (Dockerfile, nginx-mall, env-variabler) är standard.                  |     | Motsvarande: `az containerapp update` och Azures sätt att hantera secrets är plattformsspecifikt, resten är standard.                                          | –                                                                                                                                                                               |
+|                          | Render (valt)                                                                                                                                           | Azure Container Apps                                                     | Vercel / Netlify                                                                   |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------- |
+| Kör våra Docker-images?  | Ja, via Dockerfile eller en färdig image från GHCR.                                                                                                     | Ja, kan köra images från GHCR.                                           | Inte lämpligt för vår lösning med en generell nginx-container och ett separat API. |
+| Kostnad och registrering | Free-nivå finns, men kort kan krävas för kontoverifiering. Betald Starter-nivå kostar enligt vår dåvarande jämförelse cirka 7 USD per tjänst och månad. | Har en free tier, men kräver ett Azure-konto och kort vid registrering.  | Kostnadsmodell och begränsningar skiljer sig mellan tjänsterna.                    |
+| Hantering av hemligheter | Miljövariabler per tjänst i Render Environment.                                                                                                         | Miljövariabler eller secrets, med möjlighet att använda Azure Key Vault. | Inte utvärderat för vår Docker-baserade lösning.                                   |
+| Kallstart                | Free-tjänster kan somna efter inaktivitet och behöver tid för att vakna.                                                                                | Consumption plan kan skala till noll och få kallstart.                   | Inte direkt jämförbart med vår nuvarande containerlösning.                         |
+| Leverantörsspecifik kod  | Framför allt deploy-hooken och hur image-URL:en skickas till Render.                                                                                    | Kräver plattformsspecifika Azure-kommandon och secret-hantering.         | Skulle kräva en annan lösning för hosting och API-drift.                           |
 
 ## Motivering
 
-Nästan allt i vår lösning fungerar på precis samma sätt oavsett vilken
-plattform vi väljer, eftersom vi bara använder helt vanlig Docker-teknik:
-två Dockerfiler och tre miljövariabler (`PORT`, `API_URL`, `API_KEY`) som
-nginx läser när containern startar. Det är inte kopplat till Render på
-något sätt – det hade fungerat likadant på Cloud Run eller Azure.
+Vi valde Render eftersom det var enkelt att komma igång med i en liten grupp och eftersom plattformen kunde köra våra befintliga Docker-images.
 
-Den enda delen som faktiskt är knuten till Render är ett enda steg i vårt
-GitHub Actions-skript (`ci.yml`): raden som skickar ett anrop till Renders
-"deploy hook" för att säga "kör den här nya versionen nu". Om vi hade
-bytt plattform hade vi bara behövt byta ut den ena raden mot motsvarande
-kommando för Google eller Azure – resten av skriptet (bygga appen, köra
-tester, skicka upp imagen) hade varit exakt likadant.
+Nästan hela lösningen bygger på vanlig Docker-teknik och är därför inte beroende av Render. Vi använder två Dockerfiler och miljövariabler (`PORT`, `API_URL`, `API_KEY`) som läses när containrarna startar.
 
-Vi valde Render för att det var enklast att komma igång med som nybörjare
-i en liten grupp: enkelt gränssnitt för att sätta miljövariabler (vilket vi
-behövde felsöka flera gånger under projektet), och deploy-hooken är lätt
-att koppla ihop med GitHub Actions utan att behöva sätta upp inloggning
-mot ett stort molnkonto.
+Den del som är specifik för Render är deploy-hooken i GitHub Actions (`ci.yml`). Om vi skulle byta plattform behöver vi framför allt ersätta detta steg med motsvarande deploy-mekanism hos den nya leverantören.
+
+Render hade också ett enkelt gränssnitt för att hantera miljövariabler, vilket underlättade felsökning och integration med GitHub Actions.
 
 ## Konsekvenser
 
-**Det här klarar vi av i staging** (vår testmiljö, inte den riktiga
-appen som riktiga användare skulle använda):
+- Vi kan använda samma Docker-images lokalt och i staging.
+- Frontend och mock-API körs som två separata webbtjänster.
+- Miljövariabler och hemligheter hanteras separat för respektive tjänst.
+- CI kan bygga och publicera images till GHCR och därefter starta en deploy via Render.
+- Free-tjänster kan somna efter inaktivitet, vilket innebär att den första förfrågan kan ta längre tid.
+- Staging har inte samma krav på tillgänglighet, övervakning och redundans som en riktig produktionsmiljö.
+- Mock-API:t sparar inte data permanent, vilket innebär att information kan försvinna vid omstart.
+- En riktig produktionslösning behöver bland annat riktig autentisering, permanent datalagring och tillräcklig övervakning.
 
-- Att sidan somnar och tar en minut att vakna om ingen använt den på ett
-  tag.
-- Att det bara finns en enda kopia av appen igång – om den kraschar finns
-  ingen backup som tar över.
-- Att hemligheter (som API-nyckeln) bara ligger i Render och GitHub sina
-  vanliga inställningssidor, inte i ett särskilt säkerhetsverktyg.
-  **Det här skulle INTE funka i en riktig, färdig produkt (produktion):**
-- Kallstarten – riktiga användare ska inte behöva vänta en minut på att
-  sidan vaknar. Det kräver en betald plan utan viloläge.
-- Att det bara finns en fast, delad nyckel istället för att varje
-  användare loggar in på riktigt.
-- Ingen övervakning som varnar oss om appen skulle sluta svara.
-- Att mock-API:t glömmer allt vid omstart, eftersom det inte sparar något
-  permanent. En riktig produkt behöver en riktig databas.
+**Omprövas om**:
+
+- Vi behöver högre tillgänglighet eller redundans än vad vår nuvarande Render-konfiguration erbjuder.
+- Kostnaden för Render ökar eller blir högre än motsvarande lösningar hos andra leverantörer.
+- Vi behöver funktioner för skalning, övervakning eller säkerhet som vår nuvarande hostinglösning inte kan erbjuda.
+- Vi behöver flytta från staging med mock-API till en riktig produktionsmiljö med ett separat backend och en permanent databas.
