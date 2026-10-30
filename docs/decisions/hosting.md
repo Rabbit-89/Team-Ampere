@@ -1,6 +1,6 @@
 # Beslut: Hosting av Team-Ampere (Kraftly)
 
-**Datum:** 2026-09-22 · **Beslut:** Vi använder Render för staging med två separata webbtjänster som kör Docker-images för frontend/nginx och mock-API.
+**Datum:** 2026-09-22 · **Beslut:** Vi använder Render för staging och produktion med två separata webbtjänster som kör Docker-images för frontend/nginx och mock-API.
 
 ## Bakgrund
 
