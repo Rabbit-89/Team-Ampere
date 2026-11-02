@@ -12,8 +12,7 @@ Inget här är kritiskt enligt definitionen i M10. Listan finns för att den som
 
 ## Vad vi hade gjort med två veckor till
 
-1. Förbättrat valideringen i flyttanmälan så att samtliga fält ger tydliga och tillgängliga felmeddelanden.
-2. Genomfört och dokumenterat tester med skärmläsare, till exempel NVDA, för att komplettera tangentbordstesterna.
+Förbättrat valideringen i flyttanmälan så att samtliga fält ger tydliga och tillgängliga felmeddelanden.
 
 ## Kontroll av kritiska risker
 
