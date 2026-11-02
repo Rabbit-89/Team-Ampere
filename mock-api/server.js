@@ -1,6 +1,7 @@
 // Simple mock of Kraftly's API. Built for the demo -- NOT for production.
 // Webbmakarna AB / M & J
 const express = require("express");
+const { randomUUID } = require("node:crypto");
 // Konfiguration kommer från miljön. Lokalt läses .env (om den finns).
 try {
   process.loadEnvFile();
@@ -33,22 +34,6 @@ if (keys.size === 0) {
 
 const app = express();
 app.use(express.json());
-
-// CORS -- opens everything so it just works
-// Varje anrop till /api måste ha en giltig nyckel
-app.use("/api", (req, res, next) => {
-  const auth = req.get("Authorization") || "";
-  const token = auth.startsWith("Bearer ") ? auth.slice(7) : "";
-
-  if (token !== "fake-token-123") {
-    console.log(
-      `401 ${req.method} ${req.originalUrl} – saknad eller ogiltig token`,
-    );
-    return res.status(401).json({ error: "Saknad eller ogiltig token" });
-  }
-
-  next();
-});
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -132,21 +117,96 @@ const consumption = {
   pricePerKwh: 1.42,
 };
 
-// anyone gets in, we'll add real auth later(TM)
-app.post("/api/login", (req, res) => {
-  res.json({ token: "fake-token-123", name: user.name });
+const refreshCookie = "kraftly_refresh";
+const refreshSessions = new Map();
+const accessTokens = new Map();
+
+const setRefreshCookie = (res, token) =>
+  res.cookie(refreshCookie, token, {
+    httpOnly: true,
+    sameSite: "lax",
+    path: "/api/v2/auth",
+  });
+
+const clearRefreshCookie = (res) =>
+  res.clearCookie(refreshCookie, {
+    httpOnly: true,
+    sameSite: "lax",
+    path: "/api/v2/auth",
+  });
+
+const getRefreshToken = (req) => {
+  const cookie = (req.get("Cookie") || "")
+    .split(";")
+    .map((part) => part.trim())
+    .find((part) => part.startsWith(`${refreshCookie}=`));
+  return cookie?.slice(refreshCookie.length + 1);
+};
+
+const issueSession = (res) => {
+  const refreshToken = randomUUID();
+  const accessToken = randomUUID();
+  refreshSessions.set(refreshToken, accessToken);
+  accessTokens.set(accessToken, refreshToken);
+  setRefreshCookie(res, refreshToken);
+  return accessToken;
+};
+
+app.post(["/api/v2/auth/login", "/api/login"], (req, res) => {
+  const accessToken = issueSession(res);
+  res.json({ accessToken, token: accessToken, name: user.name });
 });
 
-app.get("/api/user", (req, res) => res.json(user));
+app.post("/api/v2/auth/refresh", (req, res) => {
+  const refreshToken = getRefreshToken(req);
+  const previousAccessToken = refreshSessions.get(refreshToken);
+  if (!previousAccessToken) {
+    clearRefreshCookie(res);
+    return res.status(401).json({ error: "No active session" });
+  }
 
-app.get("/api/consumption", (req, res) => {
+  accessTokens.delete(previousAccessToken);
+  const accessToken = randomUUID();
+  refreshSessions.set(refreshToken, accessToken);
+  accessTokens.set(accessToken, refreshToken);
+  res.json({ accessToken });
+});
+
+app.post("/api/v2/auth/logout", (req, res) => {
+  const refreshToken = getRefreshToken(req);
+  const accessToken = refreshSessions.get(refreshToken);
+  if (accessToken) accessTokens.delete(accessToken);
+  refreshSessions.delete(refreshToken);
+  clearRefreshCookie(res);
+  res.sendStatus(204);
+});
+
+app.use("/api", (req, res, next) => {
+  const authorization = req.get("Authorization") || "";
+  const accessToken = authorization.startsWith("Bearer ")
+    ? authorization.slice(7)
+    : "";
+  if (!accessTokens.has(accessToken)) {
+    console.log(
+      `401 ${req.method} ${req.originalUrl} – saknad eller ogiltig token`,
+    );
+    return res.status(401).json({ error: "Saknad eller ogiltig token" });
+  }
+  next();
+});
+
+app.get(["/api/user", "/api/v2/user"], (req, res) => res.json(user));
+
+app.get(["/api/consumption", "/api/v2/consumption"], (req, res) => {
   // quick fix: dashboard felt too fast in the demo, added a delay so the spinner shows /J
   setTimeout(() => res.json(consumption), 600);
 });
 
-app.get("/api/invoices", (req, res) => res.json(invoices));
+app.get(["/api/invoices", "/api/v2/invoices"], (req, res) =>
+  res.json(invoices),
+);
 
-app.post("/api/move", (req, res) => {
+app.post(["/api/move", "/api/v2/move"], (req, res) => {
   console.log("Move request:", req.body);
   res.json({
     ok: true,
@@ -154,7 +214,7 @@ app.post("/api/move", (req, res) => {
   });
 });
 
-app.put("/api/user", (req, res) => {
+app.put(["/api/user", "/api/v2/user"], (req, res) => {
   Object.assign(user, req.body);
   res.json(user);
 });

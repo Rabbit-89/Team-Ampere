@@ -60,6 +60,32 @@ test("skyddad endpoint kräver token", async ({ request }) => {
   expect(response.status()).toBe(401);
 });
 
+test("utloggning avslutar sessionen och spärrar gamla tokens", async ({
+  request,
+}) => {
+  const login = await request.post("/api/v2/auth/login", {
+    data: { email: "demo@example.com", password: "demo-password" },
+  });
+  expect(login.status()).toBe(200);
+
+  const { accessToken } = await login.json();
+  const authenticated = await request.get("/api/v2/invoices", {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
+  expect(authenticated.status()).toBe(200);
+
+  const logout = await request.post("/api/v2/auth/logout");
+  expect(logout.status()).toBe(204);
+
+  const refresh = await request.post("/api/v2/auth/refresh");
+  expect(refresh.status()).toBe(401);
+
+  const staleToken = await request.get("/api/v2/invoices", {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
+  expect(staleToken.status()).toBe(401);
+});
+
 test("API-data renderas inte som HTML", async ({ page }) => {
   await page.route("**/api/v2/invoices", (route) =>
     route.fulfill({

@@ -15,21 +15,37 @@
       </div>
     </header>
     <main class="container">
+      <p v-if="logoutError" role="alert" class="error-message">
+        {{ logoutError }}
+      </p>
       <RouterView />
     </main>
   </div>
 </template>
 
 <script setup>
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { setAccessToken } from "./services/token.js";
+import { logout as endServerSession } from "./services/api.js";
 import KButton from "./components/KButton.vue";
 
 const router = useRouter();
+const logoutError = ref("");
 
-const logout = () => {
-  setAccessToken(null);
-  router.push("/login");
+const logout = async () => {
+  logoutError.value = "";
+  try {
+    await endServerSession();
+    // Log out successful, no further action needed
+  } catch {
+    logoutError.value =
+      "Utloggningen kunde inte bekräftas av servern. Försök igen.";
+  } finally {
+    // Clear the access token and redirect to login page
+    setAccessToken(null);
+    await router.push("/login");
+  }
 };
 </script>
 

@@ -16,6 +16,12 @@ Frontend har även en route guard som skickar användaren till `/login` om det s
 
 Refresh-flödet använder `/api/v2/auth/refresh` för att försöka få en ny access token när det finns en aktiv session.
 
+Vid utloggning anropar klienten `POST /api/v2/auth/logout` med refresh-cookien.
+API:t måste återkalla refresh-sessionen, avvisa dess access tokens och radera
+cookien. Klienten rensar därefter access token ur minnet och går till
+inloggningen. Om API:t inte kan bekräfta utloggningen visas ett fel i stället
+för att låtsas att serversessionen avslutades.
+
 ---
 
 ## OWASP Top 10 – genomgång

@@ -38,6 +38,43 @@ server {
   }
 
   # /api skickas vidare – och nyckeln läggs på här, på servern.
+  location = /api/v2/auth/login {
+    include /etc/nginx/security-headers.conf;
+    proxy_pass ${API_URL}/api/v2/auth/login;
+    proxy_set_header X-Api-Key ${API_KEY};
+    proxy_ssl_server_name on;
+    proxy_read_timeout 90s;
+  }
+
+  location = /api/v2/auth/refresh {
+    include /etc/nginx/security-headers.conf;
+    proxy_pass ${API_URL}/api/v2/auth/refresh;
+    proxy_set_header X-Api-Key ${API_KEY};
+    proxy_ssl_server_name on;
+    proxy_read_timeout 90s;
+  }
+
+  location = /api/v2/auth/logout {
+    include /etc/nginx/security-headers.conf;
+    proxy_pass ${API_URL}/api/v2/auth/logout;
+    proxy_set_header X-Api-Key ${API_KEY};
+    proxy_set_header Authorization $http_authorization;
+    proxy_ssl_server_name on;
+    proxy_read_timeout 90s;
+  }
+
+  location ^~ /api/v2/ {
+    include /etc/nginx/security-headers.conf;
+    if ($http_authorization = "") {
+      return 401;
+    }
+    proxy_pass ${API_URL}/api/v2/;
+    proxy_set_header X-Api-Key ${API_KEY};
+    proxy_set_header Authorization $http_authorization;
+    proxy_ssl_server_name on;
+    proxy_read_timeout 90s;
+  }
+
   location /api/ {
     include /etc/nginx/security-headers.conf;
     proxy_pass ${API_URL}/api/;
