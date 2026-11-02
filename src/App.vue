@@ -41,8 +41,8 @@ const logoutPending = ref(false);
 
 watch(
   () => router.currentRoute.value.path,
-  () => {
-    logoutError.value = "";
+  (path) => {
+    if (path !== "/login") logoutError.value = "";
   },
 );
 
@@ -53,15 +53,12 @@ const logout = async () => {
     await endServerSession();
   } catch {
     logoutError.value =
-      "Utloggningen kunde inte bekräftas av servern. Du är fortfarande inloggad. Försök igen.";
+      "Du har loggats ut på den här enheten, men servern kunde inte bekräfta att sessionen avslutades. Försök logga ut igen när anslutningen fungerar.";
+  } finally {
+    setAccessToken(null);
+    await router.push("/login");
     logoutPending.value = false;
-    return;
   }
-
-  setAccessToken(null);
-  logoutError.value = "";
-  await router.push("/login");
-  logoutPending.value = false;
 };
 </script>
 

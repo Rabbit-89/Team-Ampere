@@ -37,6 +37,7 @@ export const logout = async () => {
     method: "POST",
     credentials: "include",
   });
+  if (res.status === 401) return;
   if (!res.ok) {
     console.log("API error", res.status);
     throw new Error("API error " + res.status);
