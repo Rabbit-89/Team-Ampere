@@ -5,7 +5,7 @@
 Enhet (Vitest): Testas när ny logik och funktioner skapas eller ändras
 
 Komponent (Vitest + Vue Testing Library): Testas när en komponent innehåller användarinteraktion, rendering av data eller viktig funktionalitet.
-E2E (Cypress): Testas för kritiska användarflöden som sträcker sig över flera sidor eller komponenter, exempelvis inloggning, formulär och navigering.
+E2E (CPlaywright): Testas för kritiska användarflöden som sträcker sig över flera sidor eller komponenter, exempelvis inloggning, formulär och navigering.
 
 ## Karta: vad testas var
 
