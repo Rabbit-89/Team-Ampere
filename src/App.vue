@@ -8,7 +8,12 @@
           <RouterLink to="/fakturor">Fakturor</RouterLink>
           <RouterLink to="/flytt">Flyttanmälan</RouterLink>
           <RouterLink to="/profil">Mina uppgifter</RouterLink>
-          <KButton variant="text" class="logout" @click="logout">
+          <KButton
+            variant="text"
+            class="logout"
+            :disabled="logoutPending"
+            @click="logout"
+          >
             Logga ut
           </KButton>
         </nav>
@@ -24,7 +29,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { setAccessToken } from "./services/token.js";
 import { logout as endServerSession } from "./services/api.js";
@@ -32,20 +37,31 @@ import KButton from "./components/KButton.vue";
 
 const router = useRouter();
 const logoutError = ref("");
+const logoutPending = ref(false);
+
+watch(
+  () => router.currentRoute.value.path,
+  () => {
+    logoutError.value = "";
+  },
+);
 
 const logout = async () => {
   logoutError.value = "";
+  logoutPending.value = true;
   try {
     await endServerSession();
-    // Log out successful, no further action needed
   } catch {
     logoutError.value =
-      "Utloggningen kunde inte bekräftas av servern. Försök igen.";
-  } finally {
-    // Clear the access token and redirect to login page
-    setAccessToken(null);
-    await router.push("/login");
+      "Utloggningen kunde inte bekräftas av servern. Du är fortfarande inloggad. Försök igen.";
+    logoutPending.value = false;
+    return;
   }
+
+  setAccessToken(null);
+  logoutError.value = "";
+  await router.push("/login");
+  logoutPending.value = false;
 };
 </script>
 
