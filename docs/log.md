@@ -733,3 +733,31 @@ Sjuk
 ### Leo
 
 Fyllt i ai-in-pipeline.md med hjälp av mina klasskamrater samt daglig log.
+
+# 2026-11-03 – generalrepetition slutdemon
+
+- Vilka var med: Jia, Rabbiya, Leo
+- Hur lång den blev: 9 min (mål 10)
+- Vad som ändrades i körschemat: Vi ändrade presentationsordningen och gjorde samtidigt en buggen.
+- Reserven provad: ja
+
+# 2026-11-03
+
+### Leo
+
+**Vad har du gjort idag?**
+
+Skrivit manus och övat inför presentation med grupp
+
+### Jia
+
+**Vad har du gjort idag?**
+
+Skrivit demo.md och uppdaterat daily-log.
+Arbetat med min individuella rapport.
+Övat inför presentationen med grupp.
+
+### Rabbiya
+
+**Vad har du gjort idag?**
+fixat lite dokumentation. architecture.md och tokenlagring.md
