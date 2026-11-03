@@ -22,6 +22,10 @@ Den tidigare `kraftly_logged_in`-flaggan i localStorage visade att information i
 Vi valde att lagra access token i minnet eftersom den då inte behöver sparas i localStorage eller sessionStorage, där JavaScript kan läsa den.
 
 Refresh token lagras i en httpOnly-cookie som API:t sätter. Den används endast vid anrop till `/api/v2/auth/refresh`.
+En `httpOnly`-cookie kan synas i webbläsarens utvecklarverktyg under cookies,
+men JavaScript på sidan kan inte läsa dess värde via `document.cookie`. Att den
+listas i utvecklarverktygen är normalt och betyder inte att den är exponerad för
+sidans JavaScript.
 
 Vid utloggning anropar klienten `POST /api/v2/auth/logout` med cookien. API:t
 ska återkalla refresh-sessionen, avvisa access tokens som tillhör sessionen

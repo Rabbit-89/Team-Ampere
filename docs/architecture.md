@@ -69,10 +69,13 @@ Samma image går genom miljöerna – konfigurationen skiljer dem åt, inte kode
 
 ## Beslut
 
-De tre viktigaste – alla beslut finns i [`docs/decisions/`](decisions/README.md):
+Våra arkitekturbeslut dokumenteras i [`docs/decisions/`](decisions/README.md):
+
+Vi bygger och distribuerar samma container-image i alla miljöer, så det är
+konfigurationen som skiljer staging från produktion. Access token lagras bara
+i minnet och refresh token i en `httpOnly`-cookie. Funktioner som Norge styrs
+med runtime-flaggor, så de kan ändras utan att bygga om imagen.
 
 - [Hosting](decisions/hosting.md) – en container på Render, imagen byggs en gång
 - [Tokenlagring](decisions/tokenlagring.md) – access token i minnet, refresh i httpOnly-cookie
 - [Feature flags](decisions/feature-flags.md) – Norge bakom en flagga som läses vid körtid
-
-<Era tre – samma som i docs/decisions/README.md. Exemplet är labbrepots val.>
