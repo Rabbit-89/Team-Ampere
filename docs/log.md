@@ -761,3 +761,5 @@ Arbetat med min individuella rapport.
 
 **Vad har du gjort idag?**
 fixat lite dokumentation. architecture.md och tokenlagring.md
+Övat inför presentationen med gruppen
+Skapade backup slides och inspelningen av demon om nånting inte funkar under presentationen
