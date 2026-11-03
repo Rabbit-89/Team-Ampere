@@ -23,6 +23,13 @@ Vi valde att lagra access token i minnet eftersom den då inte behöver sparas i
 
 Refresh token lagras i en httpOnly-cookie som API:t sätter. Den används endast vid anrop till `/api/v2/auth/refresh`.
 
+Vid utloggning anropar klienten `POST /api/v2/auth/logout` med cookien. API:t
+ska återkalla refresh-sessionen, avvisa access tokens som tillhör sessionen
+och radera cookien. Oavsett svar rensar klienten access token ur minnet och
+går till inloggningssidan; HTTP 401 räknas som att sessionen redan är avslutad.
+Vid nätverksfel eller andra serverfel visas en varning, eftersom serversessionen
+kan fortfarande vara aktiv även om den här webbläsarfliken är utloggad.
+
 Access token skickas i `Authorization: Bearer`-headern via `api.js`. Vid appstart och när API:t svarar med 401 kan klienten begära en ny access token.
 
 På så sätt kan användaren behålla sin inloggning efter en sidomladdning utan att access token behöver lagras permanent i webbläsaren.

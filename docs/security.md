@@ -16,6 +16,14 @@ Frontend har även en route guard som skickar användaren till `/login` om det s
 
 Refresh-flödet använder `/api/v2/auth/refresh` för att försöka få en ny access token när det finns en aktiv session.
 
+Vid utloggning anropar klienten `POST /api/v2/auth/logout` med refresh-cookien.
+API:t måste återkalla refresh-sessionen, avvisa dess access tokens och radera
+cookien. Klienten rensar alltid access token ur minnet och går till
+inloggningen, även om anropet misslyckas. HTTP 401 räknas som att sessionen
+redan är avslutad. Vid andra server- eller nätverksfel visas en varning:
+lokalt är användaren utloggad, men servern kan fortfarande ha en aktiv
+refresh-session.
+
 ---
 
 ## OWASP Top 10 – genomgång

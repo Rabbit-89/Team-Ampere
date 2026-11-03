@@ -32,6 +32,18 @@ export const login = (email, password) =>
     body: JSON.stringify({ email, password }),
   });
 
+export const logout = async () => {
+  const res = await fetch(BASE_URL + API_BASE + "/auth/logout", {
+    method: "POST",
+    credentials: "include",
+  });
+  if (res.status === 401) return;
+  if (!res.ok) {
+    console.log("API error", res.status);
+    throw new Error("API error " + res.status);
+  }
+};
+
 export const fetchUser = () => request(API_BASE + "/user");
 export const fetchConsumption = () => request(API_BASE + "/consumption");
 export const fetchInvoices = () => request(API_BASE + "/invoices");

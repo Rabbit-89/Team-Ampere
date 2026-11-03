@@ -8,28 +8,57 @@
           <RouterLink to="/fakturor">Fakturor</RouterLink>
           <RouterLink to="/flytt">Flyttanmälan</RouterLink>
           <RouterLink to="/profil">Mina uppgifter</RouterLink>
-          <KButton variant="text" class="logout" @click="logout">
+          <KButton
+            variant="text"
+            class="logout"
+            :disabled="logoutPending"
+            @click="logout"
+          >
             Logga ut
           </KButton>
         </nav>
       </div>
     </header>
     <main class="container">
+      <p v-if="logoutError" role="alert" class="error-message">
+        {{ logoutError }}
+      </p>
       <RouterView />
     </main>
   </div>
 </template>
 
 <script setup>
+import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { setAccessToken } from "./services/token.js";
+import { logout as endServerSession } from "./services/api.js";
 import KButton from "./components/KButton.vue";
 
 const router = useRouter();
+const logoutError = ref("");
+const logoutPending = ref(false);
 
-const logout = () => {
-  setAccessToken(null);
-  router.push("/login");
+watch(
+  () => router.currentRoute.value.path,
+  (path) => {
+    if (path !== "/login") logoutError.value = "";
+  },
+);
+
+const logout = async () => {
+  logoutError.value = "";
+  logoutPending.value = true;
+  try {
+    await endServerSession();
+  } catch {
+    logoutError.value =
+      "Du har loggats ut på den här enheten, men servern kunde inte bekräfta att sessionen avslutades. Försök logga ut igen när anslutningen fungerar.";
+  } finally {
+    setAccessToken(null);
+    await router.push("/login");
+    logoutPending.value = false;
+  }
 };
 </script>
 
