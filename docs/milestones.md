@@ -170,7 +170,7 @@ Storybook build completed successfully
 
 # M10
 
-[ ] Dokumentationen komplett:
+[ x ] Dokumentationen komplett:
 
 - README klarar nya kollegan-testet – en person utanför teamet startar appen lokalt med bara README och kan svara på de fem frågorna med bara repot;
 - luckorna från torsdagens övning 1 (partnerteamets issue) är åtgärdade eller står som känd brist
@@ -185,6 +185,6 @@ Storybook build completed successfully
 | 4. Varför ser arkitekturen ut så här – var finns besluten? | `docs/architecture.md`, `docs/decisions/README.md`                                                                        |
 | 5. Vad är känt trasigt eller medvetet ogjort?              | `docs/known-issues.md`, `docs/readiness.md`                                                                               |
 
-[ ] Inga kända kritiska brister: docs/readiness.md = tabellen från Canvas-sidan Produktionsfärdig app – checklistan med en kolumn Status per rad: klart · känd brist · saknas – och utgår (beslut 12/10) för det som utgick, v.12 för raden Release (+ en kolumn Bevis med länk eller fil) · docs/known-issues.md med en rad per känd brist och saknas: brist, påverkan, varför den inte är åtgärdad (vem äger den, vad det skulle kosta) · Kritisk = kunddata kan läcka, inloggningen går att kringgå, prod går inte att rulla tillbaka, eller pipelinen är röd på main – sådant får inte stå kvar som "känd brist"; allt annat får det, om det står skrivet
+[ x ] Inga kända kritiska brister: docs/readiness.md = tabellen från Canvas-sidan Produktionsfärdig app – checklistan med en kolumn Status per rad: klart · känd brist · saknas – och utgår (beslut 12/10) för det som utgick, v.12 för raden Release (+ en kolumn Bevis med länk eller fil) · docs/known-issues.md med en rad per känd brist och saknas: brist, påverkan, varför den inte är åtgärdad (vem äger den, vad det skulle kosta) · Kritisk = kunddata kan läcka, inloggningen går att kringgå, prod går inte att rulla tillbaka, eller pipelinen är röd på main – sådant får inte stå kvar som "känd brist"; allt annat får det, om det står skrivet
 
-[ ] Demon förberedd: docs/demo.md = körschema för slutdemon torsdag 5/11 (10 min demo + 5 min frågor per team): ordningen, vem visar vad, i prod, vilka flikar som ska vara öppna, reservplan (skärmdump eller inspelning om prod sover) · en generalrepetition genomförd måndag 2/11 eller tisdag 3/11 och loggad i docs/log.md (datum, hur lång den blev, vad som ändrades) · demo-ansvarig utsedd (i team om fyra: den som inte varit tech lead)
+[ x ] Demon förberedd: docs/demo.md = körschema för slutdemon torsdag 5/11 (10 min demo + 5 min frågor per team): ordningen, vem visar vad, i prod, vilka flikar som ska vara öppna, reservplan (skärmdump eller inspelning om prod sover) · en generalrepetition genomförd måndag 2/11 eller tisdag 3/11 och loggad i docs/log.md (datum, hur lång den blev, vad som ändrades) · demo-ansvarig utsedd (i team om fyra: den som inte varit tech lead)
